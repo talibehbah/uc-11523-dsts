@@ -2,11 +2,11 @@
 
 This repository contains my coursework, practical exercises, assessments and project work for **11523 – Data Science Technology and Systems PG** at the University of Canberra.
 
-This unit is being completed during the final semester of my **Master of Information Technology and Systems (Data Science)** in 2026. The repository will be maintained throughout the semester to document my learning and development work.
+I am completing this unit in 2026 during the final semester of my **Master of Information Technology and Systems (Data Science)**. This repository will be maintained throughout the semester to document my learning, development work and academic progress.
 
 ## Unit focus
 
-The unit explores advanced data science technologies and systems, with an emphasis on their practical and ethical use. Key topics include:
+This unit explores advanced data science technologies and systems, with an emphasis on their practical and ethical use. Key topics include:
 
 - Python, Jupyter and development environments
 - Data preprocessing and feature engineering
@@ -14,10 +14,10 @@ The unit explores advanced data science technologies and systems, with an emphas
 - Git, GitHub and collaborative development
 - Continuous integration and automation
 - Docker and model deployment
-- Data visualisation, Streamlit, Plotly and Power BI
+- Data visualisation using Streamlit, Plotly and Power BI
 - Prompt engineering
 - Retrieval-Augmented Generation (RAG) systems
-- Evaluation and ethics in artificial intelligence
+- Artificial intelligence evaluation and ethics
 
 ## Repository purpose
 
@@ -27,11 +27,7 @@ This repository will be used to:
 - practise version control and collaboration using GitHub;
 - document experiments and learning progress;
 - develop and submit assessment-related code; and
-- build the unit's final data science project.
-
-## Repository name
-
-`uc-11523-dsts`
+- build the unit’s final data science project.
 
 ## Author
 
@@ -41,4 +37,4 @@ University of Canberra, 2026
 
 ## Academic integrity
 
-This repository is intended for educational purposes. Any use of its contents must comply with the University of Canberra's academic integrity requirements.
+This repository is intended for educational purposes. Any use of its contents must comply with the University of Canberra’s academic integrity requirements.
