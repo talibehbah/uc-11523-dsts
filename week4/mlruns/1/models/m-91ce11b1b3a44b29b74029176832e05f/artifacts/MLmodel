@@ -1,0 +1,23 @@
+artifact_path: /home/cbah/projects/uc-dsts/week4/mlruns/1/models/m-91ce11b1b3a44b29b74029176832e05f/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.13.9
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.9.0
+    skops_trusted_types: null
+mlflow_version: 3.14.0
+model_id: m-91ce11b1b3a44b29b74029176832e05f
+model_size_bytes: 5861271
+model_uuid: m-91ce11b1b3a44b29b74029176832e05f
+prompts: null
+run_id: 2a26b959c0da46159fe142356c2ffc4e
+utc_time_created: '2026-09-02 09:01:54.045527'

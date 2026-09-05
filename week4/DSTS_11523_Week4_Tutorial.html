@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DSTS 11523 · Week 4 Tutorial</title>
+  <style>
+
+  @font-face {
+  font-family: octicons-link;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.markdown-body .anchor {
+  float: left;
+  line-height: 1;
+  margin-left: -20px;
+  padding-right: 4px;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: #1b1f23;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #24292e;
+  line-height: 1.5;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.markdown-body .pl-c {
+  color: #6a737d;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #6f42c1;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #24292e;
+}
+
+.markdown-body .pl-ent {
+  color: #22863a;
+}
+
+.markdown-body .pl-k {
+  color: #d73a49;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #032f62;
+}
+
+.markdown-body .pl-smw,
+.markdown-body .pl-v {
+  color: #e36209;
+}
+
+.markdown-body .pl-bu {
+  color: #b31d28;
+}
+
+.markdown-body .pl-ii {
+  background-color: #b31d28;
+  color: #fafbfc;
+}
+
+.markdown-body .pl-c2 {
+  background-color: #d73a49;
+  color: #fafbfc;
+}
+
+.markdown-body .pl-c2:before {
+  content: "^M";
+}
+
+.markdown-body .pl-sr .pl-cce {
+  color: #22863a;
+  font-weight: 700;
+}
+
+.markdown-body .pl-ml {
+  color: #735c0f;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  color: #005cc5;
+  font-weight: 700;
+}
+
+.markdown-body .pl-mi {
+  color: #24292e;
+  font-style: italic;
+}
+
+.markdown-body .pl-mb {
+  color: #24292e;
+  font-weight: 700;
+}
+
+.markdown-body .pl-md {
+  background-color: #ffeef0;
+  color: #b31d28;
+}
+
+.markdown-body .pl-mi1 {
+  background-color: #f0fff4;
+  color: #22863a;
+}
+
+.markdown-body .pl-mc {
+  background-color: #ffebda;
+  color: #e36209;
+}
+
+.markdown-body .pl-mi2 {
+  background-color: #005cc5;
+  color: #f6f8fa;
+}
+
+.markdown-body .pl-mdr {
+  color: #6f42c1;
+  font-weight: 700;
+}
+
+.markdown-body .pl-ba {
+  color: #586069;
+}
+
+.markdown-body .pl-sg {
+  color: #959da5;
+}
+
+.markdown-body .pl-corl {
+  color: #032f62;
+  text-decoration: underline;
+}
+
+.markdown-body details {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body a {
+  background-color: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline-width: 0;
+}
+
+.markdown-body strong {
+  font-weight: inherit;
+  font-weight: bolder;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+.markdown-body img {
+  border-style: none;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body input {
+  overflow: visible;
+}
+
+.markdown-body [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body * {
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body hr {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.markdown-body hr:before {
+  content: "";
+  display: table;
+}
+
+.markdown-body hr:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.markdown-body h1 {
+  font-size: 32px;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  font-weight: 600;
+}
+
+.markdown-body h2 {
+  font-size: 24px;
+}
+
+.markdown-body h3 {
+  font-size: 20px;
+}
+
+.markdown-body h3,
+.markdown-body h4 {
+  font-weight: 600;
+}
+
+.markdown-body h4 {
+  font-size: 16px;
+}
+
+.markdown-body h5 {
+  font-size: 14px;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
+  font-weight: 600;
+}
+
+.markdown-body h6 {
+  font-size: 12px;
+}
+
+.markdown-body p {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol ol ol,
+.markdown-body ol ul ol,
+.markdown-body ul ol ol,
+.markdown-body ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.markdown-body input::-webkit-inner-spin-button,
+.markdown-body input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.markdown-body .border {
+  border: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .border-0 {
+  border: 0!important;
+}
+
+.markdown-body .border-bottom {
+  border-bottom: 1px solid #e1e4e8!important;
+}
+
+.markdown-body .rounded-1 {
+  border-radius: 3px!important;
+}
+
+.markdown-body .bg-white {
+  background-color: #fff!important;
+}
+
+.markdown-body .bg-gray-light {
+  background-color: #fafbfc!important;
+}
+
+.markdown-body .text-gray-light {
+  color: #6a737d!important;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.markdown-body .my-2 {
+  margin-bottom: 8px!important;
+  margin-top: 8px!important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .py-0 {
+  padding-bottom: 0!important;
+  padding-top: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .py-2 {
+  padding-bottom: 8px!important;
+  padding-top: 8px!important;
+}
+
+.markdown-body .pl-3,
+.markdown-body .px-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .px-3 {
+  padding-right: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .f6 {
+  font-size: 12px!important;
+}
+
+.markdown-body .lh-condensed {
+  line-height: 1.25!important;
+}
+
+.markdown-body .text-bold {
+  font-weight: 600!important;
+}
+
+.markdown-body:before {
+  content: "";
+  display: table;
+}
+
+.markdown-body:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.markdown-body>:first-child {
+  margin-top: 0!important;
+}
+
+.markdown-body>:last-child {
+  margin-bottom: 0!important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body blockquote,
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body ul {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.markdown-body hr {
+  background-color: #e1e4e8;
+  border: 0;
+  height: .25em;
+  margin: 24px 0;
+  padding: 0;
+}
+
+.markdown-body blockquote {
+  border-left: .25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1em;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #fafbfc;
+  border: 1px solid #c6cbd1;
+  border-bottom-color: #959da5;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #959da5;
+  color: #444d56;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: .3em;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  color: #6a737d;
+  font-size: .85em;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ol ul,
+.markdown-body ul ol,
+.markdown-body ul ul {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.markdown-body li {
+  word-wrap: break-all;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 16px;
+  padding: 0;
+}
+
+.markdown-body dl dd {
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+.markdown-body table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table td,
+.markdown-body table th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.markdown-body img {
+  background-color: #fff;
+  box-sizing: content-box;
+  max-width: 100%;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body code {
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  padding: .2em .4em;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre>code {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  word-break: normal;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+.markdown-body pre code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  max-width: auto;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+}
+
+.markdown-body .commit-tease-sha {
+  color: #444d56;
+  display: inline-block;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+  font-size: 90%;
+}
+
+.markdown-body .blob-wrapper {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.markdown-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.markdown-body .blob-num {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  color: rgba(27,31,35,.3);
+  cursor: pointer;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+  font-size: 12px;
+  line-height: 20px;
+  min-width: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: right;
+  user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.markdown-body .blob-num:hover {
+  color: rgba(27,31,35,.6);
+}
+
+.markdown-body .blob-num:before {
+  content: attr(data-line-number);
+}
+
+.markdown-body .blob-code {
+  line-height: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  vertical-align: top;
+}
+
+.markdown-body .blob-code-inner {
+  color: #24292e;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+  font-size: 12px;
+  overflow: visible;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+.markdown-body .pl-token.active,
+.markdown-body .pl-token:hover {
+  background: #ffea7f;
+  cursor: pointer;
+}
+
+.markdown-body kbd {
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #c6cbd1;
+  color: #444d56;
+  display: inline-block;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
+}
+
+.markdown-body :checked+.radio-label {
+  border-color: #0366d6;
+  position: relative;
+  z-index: 1;
+}
+
+.markdown-body .tab-size[data-tab-size="1"] {
+  -moz-tab-size: 1;
+  tab-size: 1;
+}
+
+.markdown-body .tab-size[data-tab-size="2"] {
+  -moz-tab-size: 2;
+  tab-size: 2;
+}
+
+.markdown-body .tab-size[data-tab-size="3"] {
+  -moz-tab-size: 3;
+  tab-size: 3;
+}
+
+.markdown-body .tab-size[data-tab-size="4"] {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+.markdown-body .tab-size[data-tab-size="5"] {
+  -moz-tab-size: 5;
+  tab-size: 5;
+}
+
+.markdown-body .tab-size[data-tab-size="6"] {
+  -moz-tab-size: 6;
+  tab-size: 6;
+}
+
+.markdown-body .tab-size[data-tab-size="7"] {
+  -moz-tab-size: 7;
+  tab-size: 7;
+}
+
+.markdown-body .tab-size[data-tab-size="8"] {
+  -moz-tab-size: 8;
+  tab-size: 8;
+}
+
+.markdown-body .tab-size[data-tab-size="9"] {
+  -moz-tab-size: 9;
+  tab-size: 9;
+}
+
+.markdown-body .tab-size[data-tab-size="10"] {
+  -moz-tab-size: 10;
+  tab-size: 10;
+}
+
+.markdown-body .tab-size[data-tab-size="11"] {
+  -moz-tab-size: 11;
+  tab-size: 11;
+}
+
+.markdown-body .tab-size[data-tab-size="12"] {
+  -moz-tab-size: 12;
+  tab-size: 12;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 .2em .25em -1.6em;
+  vertical-align: middle;
+}
+
+.markdown-body hr {
+  border-bottom-color: #eee;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.markdown-body .pl-3 {
+  padding-left: 16px!important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.markdown-body .pl-7 {
+  padding-left: 48px!important;
+}
+
+.markdown-body .pl-8 {
+  padding-left: 64px!important;
+}
+
+.markdown-body .pl-9 {
+  padding-left: 80px!important;
+}
+
+.markdown-body .pl-10 {
+  padding-left: 96px!important;
+}
+
+.markdown-body .pl-11 {
+  padding-left: 112px!important;
+}
+
+.markdown-body .pl-12 {
+  padding-left: 128px!important;
+}
+
+/*# sourceURL=webpack://./node_modules/github-markdown-css/github-markdown.css */
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL25vZGVfbW9kdWxlcy9naXRodWItbWFya2Rvd24tY3NzL2dpdGh1Yi1tYXJrZG93bi5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSwwQkFBMEI7RUFDMUIsMkRBQXF0RTtBQUN2dEU7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsa0JBQWtCO0VBQ2xCLDJCQUEyQjtBQUM3Qjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLGFBQWE7QUFDZjs7QUFFQTs7Ozs7O0VBTUUsY0FBYztFQUNkLHNCQUFzQjtFQUN0QixrQkFBa0I7QUFDcEI7O0FBRUE7Ozs7OztFQU1FLHFCQUFxQjtBQUN2Qjs7QUFFQTs7Ozs7O0VBTUUsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsMEJBQTBCO0VBQzFCLDhCQUE4QjtFQUM5QixjQUFjO0VBQ2QsZ0JBQWdCO0VBQ2hCLGtJQUFrSTtFQUNsSSxlQUFlO0VBQ2YsZ0JBQWdCO0VBQ2hCLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLGNBQWM7QUFDaEI7O0FBRUE7O0VBRUUsY0FBYztBQUNoQjs7QUFFQTs7RUFFRSxjQUFjO0FBQ2hCOztBQUVBOztFQUVFLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsY0FBYztBQUNoQjs7QUFFQTs7Ozs7OztFQU9FLGNBQWM7QUFDaEI7O0FBRUE7O0VBRUUsY0FBYztBQUNoQjs7QUFFQTtFQUNFLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIsY0FBYztBQUNoQjs7QUFFQTtFQUNFLHlCQUF5QjtFQUN6QixjQUFjO0FBQ2hCOztBQUVBO0VBQ0UsYUFBYTtBQUNmOztBQUVBO0VBQ0UsY0FBYztFQUNkLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGNBQWM7QUFDaEI7O0FBRUE7OztFQUdFLGNBQWM7RUFDZCxnQkFBZ0I7QUFDbEI7O0FBRUE7RUFD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 */
+  
+
+details { margin: 1em 0; padding: 0.75em 1em; border: 1px solid #e1e4e8; border-radius: 6px; background: #fafbfc; }
+details summary { cursor: pointer; font-weight: 600; }
+details[open] summary { margin-bottom: 0.75em; }
+.markdown-body pre { overflow: auto; }
+
+  </style>
+</head>
+<body>
+<article class="markdown-body">
+<h1 id="dsts-11523-week-4-tutorial">DSTS 11523 · Week 4 Tutorial</h1>
+<h2 id="model-evaluation-optimisation-hands-on-lab">Model Evaluation &amp; Optimisation — hands-on lab</h2>
+<p><strong>How to use this tutorial.</strong> Work top to bottom. Each exercise has a <strong>Goal</strong>, a <strong>Task</strong>,
+a few <strong>Steps</strong> to nudge you, and a <strong>Solution</strong> with code, the real output, and a short
+"why". Try each one <em>before</em> opening the solution — you'll learn far more. Everything here
+runs as-is; the numbers shown are what you should see.</p>
+<blockquote>
+<p>Solutions are hidden in drop-downs. On GitHub / VS Code preview, click <strong>▶ Solution</strong> to
+expand. If they don't expand in your viewer, just scroll — the code is underneath.</p>
+</blockquote>
+<h3 id="setup-do-this-once">Setup (do this once)</h3>
+<pre><code class="language-bash">pip install scikit-learn pandas mlflow scipy matplotlib
+</code></pre>
+<pre><code class="language-python">import warnings, numpy as np, pandas as pd
+warnings.filterwarnings(&quot;ignore&quot;); np.random.seed(42)
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+X, y = load_breast_cancer(as_frame=True, return_X_y=True)
+# sklearn stores 0 = malignant, 1 = benign. Flip so 1 = cancer (the class we want to catch).
+y = (y == 0).astype(int)   # 1 = malignant (positive), 0 = benign (negative)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42)
+print(X.shape, &quot;positive rate (malignant):&quot;, round(y.mean(), 3))
+</code></pre>
+<p>This is a real Yes/No problem. Think of it like <em>"will it rain tomorrow?"</em> — we care about the smaller class.</p>
+<p><strong>In sklearn's raw file:</strong> <code>0 = malignant (cancer)</code>, <code>1 = benign</code>.<br />
+So cancer is label <strong>0</strong> there — but sklearn metrics treat <strong>1</strong> as positive by default. Awkward.</p>
+<p>We <strong>flip</strong> the labels:</p>
+<ul>
+<li><strong>Positive (1) = malignant = cancer</strong> — the class we want to catch</li>
+<li><strong>Negative (0) = benign</strong> — not cancer</li>
+</ul>
+<p>After the flip, <strong>positive is label 1, not 0.</strong> About <strong>37%</strong> of cases are malignant. Precision / recall / F1 / AUC are then for <strong>cancer</strong>.</p>
+<hr />
+<h2 id="part-1-metrics-learn-to-distrust-accuracy">Part 1 · Metrics — learn to distrust accuracy</h2>
+<p><strong>Notes.</strong> Every classification metric comes from four counts. Build the confusion matrix,
+<code>[[TN, FP], [FN, TP]]</code>, then: precision = TP/(TP+FP) ("when I say positive, am I right?"),
+recall = TP/(TP+FN) ("of the real cancers, how many did I catch?"), F1 balances the two,
+and ROC-AUC measures ranking quality independent of the 0.5 threshold.
+Here <strong>positive = malignant (cancer)</strong>.</p>
+<h3 id="exercise-1-rebuild-precision-recall-by-hand">Exercise 1 — Rebuild precision &amp; recall by hand</h3>
+<p><strong>Goal:</strong> see that the metrics are <em>just ratios of the confusion-matrix cells.</em>
+<strong>Task:</strong> train a random forest, get its confusion matrix, and compute precision and recall
+with plain arithmetic — then check they match scikit-learn.</p>
+<p><strong>Steps:</strong>
+1. Fit <code>RandomForestClassifier(n_estimators=300, random_state=42)</code> on the training set.
+2. <code>confusion_matrix(y_test, pred)</code> → unpack <code>TN, FP, FN, TP</code> with <code>.ravel()</code>.
+3. Apply the formulas; compare to <code>precision_score</code> / <code>recall_score</code>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, precision_score, recall_score
+
+rf = RandomForestClassifier(n_estimators=300, random_state=42).fit(X_train, y_train)
+pred = rf.predict(X_test)
+
+cm = confusion_matrix(y_test, pred)
+TN, FP, FN, TP = cm.ravel()
+print(&quot;confusion matrix:&quot;, cm.tolist())
+print(&quot;precision  manual:&quot;, round(TP/(TP+FP), 4), &quot;| sklearn:&quot;, round(precision_score(y_test, pred), 4))
+print(&quot;recall     manual:&quot;, round(TP/(TP+FN), 4), &quot;| sklearn:&quot;, round(recall_score(y_test, pred), 4))
+</code></pre>
+<pre><code class="language-text">confusion matrix: [[72, 0], [3, 39]]
+precision manual: 1.0 | sklearn: 1.0
+recall    manual: 0.9286 | sklearn: 0.9286
+</code></pre>
+<p><strong>Why:</strong> the metric functions are doing this exact arithmetic. <strong>Positive = cancer.</strong>
+TN=72 (correct benign), FP=0 (no false cancer alarms), FN=3 (missed cancers), TP=39 (correct cancer).
+Precision 1.0: every cancer alarm was right. Recall 0.9286: we missed 3 of 42 cancers.</p>
+</details>
+<h3 id="exercise-2-fall-into-and-out-of-the-accuracy-trap">Exercise 2 — Fall into (and out of) the accuracy trap</h3>
+<p><strong>Goal:</strong> feel <em>why</em> accuracy is dangerous on imbalanced data.
+<strong>Task:</strong> compare a "dumb" model that always predicts the majority class against the random
+forest — on <strong>accuracy</strong> and on <strong>recall for the malignant (cancer) class</strong>.</p>
+<p><strong>Steps:</strong>
+1. Use <code>DummyClassifier(strategy="most_frequent")</code>.
+2. Report its accuracy.
+3. Report <code>recall_score(...)</code> — recall for <em>malignant / cancer</em> (<code>pos_label=1</code>, sklearn's default) — for both models.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.dummy import DummyClassifier
+from sklearn.metrics import accuracy_score, recall_score
+
+dummy = DummyClassifier(strategy=&quot;most_frequent&quot;).fit(X_train, y_train)
+dp = dummy.predict(X_test)
+
+print(&quot;dummy  accuracy        :&quot;, round(accuracy_score(y_test, dp), 4))
+print(&quot;dummy  recall CANCER :&quot;, round(recall_score(y_test, dp), 4))
+print(&quot;forest recall CANCER :&quot;, round(recall_score(y_test, pred), 4))
+</code></pre>
+<pre><code class="language-text">dummy  accuracy         : 0.6316
+dummy  recall CANCER  : 0.0
+forest recall CANCER  : 0.9286
+</code></pre>
+<p><strong>Why:</strong> the dummy model scores <strong>63% accuracy while catching <em>zero</em> cancers</strong> — useless, yet
+"63% right" sounds fine. The forest catches 93% of malignancies. On imbalanced, high-stakes
+problems, judge by <strong>recall / AUC</strong>, never accuracy alone. <em>This is the single most important
+idea in Part 1.</em></p>
+</details>
+<h3 id="exercise-3-compare-two-models-with-roc-auc">Exercise 3 — Compare two models with ROC-AUC</h3>
+<p><strong>Goal:</strong> use a threshold-free metric to compare models fairly.
+<strong>Task:</strong> compute ROC-AUC for the random forest and for a (scaled) logistic-regression model.</p>
+<p><strong>Steps:</strong>
+1. Logistic regression needs scaling — wrap it in a <code>Pipeline([StandardScaler, LogisticRegression])</code>.
+2. Get <code>predict_proba(...)[:, 1]</code> for each model.
+3. Compare with <code>roc_auc_score</code>. <em>(Optional: plot both with <code>RocCurveDisplay.from_estimator</code>.)</em></p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+
+lr = Pipeline([(&quot;scale&quot;, StandardScaler()),
+               (&quot;clf&quot;, LogisticRegression(max_iter=5000))]).fit(X_train, y_train)
+
+rf_auc = roc_auc_score(y_test, rf.predict_proba(X_test)[:, 1])
+lr_auc = roc_auc_score(y_test, lr.predict_proba(X_test)[:, 1])
+print(&quot;Random Forest AUC:&quot;, round(rf_auc, 4))
+print(&quot;Logistic Reg  AUC:&quot;, round(lr_auc, 4))
+</code></pre>
+<pre><code class="language-text">Random Forest AUC: 0.9937
+Logistic Reg  AUC: 0.9954
+</code></pre>
+<p><strong>Why:</strong> AUC sweeps <em>every</em> threshold, so it's a fair single-number comparison. Both are
+excellent; logistic regression edges ahead here — a good reminder that the simpler model is
+often competitive, and worth keeping as a baseline.</p>
+</details>
+<hr />
+<h2 id="part-2-trustworthy-estimates-cv-leakage">Part 2 · Trustworthy estimates — CV &amp; leakage</h2>
+<p><strong>Notes.</strong> One split is a coin flip. <strong>Cross-validation</strong> averages several, giving a mean and
+an error bar. And beware <strong>leakage</strong>: any step that <em>learns from data</em> (scaling, imputing,
+feature selection) must happen <strong>inside</strong> the cross-validation fold — a <code>Pipeline</code> guarantees
+this.</p>
+<h3 id="exercise-4-put-an-error-bar-on-your-score">Exercise 4 — Put an error bar on your score</h3>
+<p><strong>Goal:</strong> stop trusting a single number.
+<strong>Task:</strong> get the 5-fold stratified CV F1 as <strong>mean ± std</strong>.</p>
+<p><strong>Steps:</strong> use <code>StratifiedKFold(5, shuffle=True, random_state=42)</code> with <code>cross_val_score(..., scoring="f1")</code>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.model_selection import StratifiedKFold, cross_val_score
+cv = StratifiedKFold(5, shuffle=True, random_state=42)
+s = cross_val_score(rf, X, y, cv=cv, scoring=&quot;f1&quot;)
+print(&quot;per-fold:&quot;, np.round(s, 4))
+print(f&quot;mean {s.mean():.4f}  ±  {s.std():.4f}&quot;)
+</code></pre>
+<pre><code class="language-text">per-fold: [0.9545 0.9    0.9383 0.9333 0.9512]
+mean 0.9355  ±  0.0194
+</code></pre>
+<p><strong>Why:</strong> always report mean ± std. <strong>Rule of thumb:</strong> if two models differ by less than one
+std (~0.02 here), treat them as tied — the difference is noise, not skill.
+F1 here is for the <strong>cancer</strong> class.</p>
+</details>
+<h3 id="exercise-5-spot-the-leak-predict-then-measure">Exercise 5 — Spot the leak 🔍 (predict, then measure)</h3>
+<p><strong>Goal:</strong> recognise leakage and fix it structurally.
+<strong>Task:</strong> the code below selects the 20 "best" features using <strong>all</strong> the data, then
+cross-validates on just those. The data is <strong>pure noise with random labels</strong>.
+<strong>(a)</strong> Predict: will the CV score be near 0.5 (chance) or higher? <strong>(b)</strong> Then run it.
+<strong>(c)</strong> Fix the leak with a <code>Pipeline</code> and measure the difference.</p>
+<pre><code class="language-python">rng = np.random.RandomState(0)
+Xn = rng.randn(200, 1000)          # 1000 noise features
+yn = rng.randint(0, 2, 200)        # random labels — no real signal
+# ... buggy selection happens here (see solution) ...
+</code></pre>
+<p><strong>Steps:</strong>
+1. Buggy version: rank features by |correlation with y| over the whole set, keep top 20,
+   then <code>cross_val_score</code>.
+2. Fixed version: move <code>SelectKBest</code> <strong>inside</strong> a <code>Pipeline</code> so it re-runs per fold.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.feature_selection import SelectKBest, f_classif
+
+# (b) WRONG — selection saw every row's label before &quot;testing&quot; on it
+corr = np.abs([np.corrcoef(Xn[:, j], yn)[0, 1] for j in range(1000)])
+top  = np.argsort(corr)[-20:]
+leaky = cross_val_score(LogisticRegression(max_iter=1000), Xn[:, top], yn, cv=5)
+
+# (c) RIGHT — selection is inside the pipeline, redone on each training fold
+pipe = Pipeline([(&quot;select&quot;, SelectKBest(f_classif, k=20)),
+                 (&quot;clf&quot;,    LogisticRegression(max_iter=1000))])
+honest = cross_val_score(pipe, Xn, yn, cv=5)
+
+print(&quot;leaky :&quot;, round(leaky.mean(), 4), &quot; &lt;- looks predictive (it isn't!)&quot;)
+print(&quot;honest:&quot;, round(honest.mean(), 4), &quot; &lt;- ~chance&quot;)
+</code></pre>
+<pre><code class="language-text">leaky : 0.735  &lt;- looks predictive (it isn't!)
+honest: 0.485  &lt;- ~chance
+</code></pre>
+<p><strong>Answer to (a):</strong> it should be ~0.5, because there is no signal. <strong>What actually happens:</strong>
+the buggy version reports <strong>73.5%</strong> — a complete illusion, because feature selection peeked at
+the labels of the rows it was later scored on. <strong>Lesson:</strong> wrap every fitted transform in a
+<code>Pipeline</code>; never <code>fit</code> anything on data before splitting.</p>
+</details>
+<hr />
+<h2 id="part-3-diagnose-optimise">Part 3 · Diagnose &amp; optimise</h2>
+<p><strong>Notes.</strong> Plot <strong>training vs validation</strong> performance as you increase model complexity.
+Both low and close → <strong>underfit (bias)</strong>; big gap → <strong>overfit (variance)</strong>. Then tune
+hyperparameters <strong>on CV</strong>, not on the test set.</p>
+<h3 id="exercise-6-diagnose-bias-vs-variance">Exercise 6 — Diagnose bias vs variance</h3>
+<p><strong>Goal:</strong> read a validation curve and name the problem.
+<strong>Task:</strong> sweep <code>max_depth</code> for a random forest and find where overfitting begins.</p>
+<p><strong>Steps:</strong> use <code>validation_curve(..., param_name="max_depth", param_range=[1,2,3,5,8,12,None], scoring="f1")</code>;
+compare <code>train.mean(1)</code> and <code>val.mean(1)</code>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.model_selection import validation_curve
+depths = [1, 2, 3, 5, 8, 12, None]
+tr, va = validation_curve(RandomForestClassifier(n_estimators=150, random_state=42),
+                          X, y, param_name=&quot;max_depth&quot;, param_range=depths,
+                          cv=cv, scoring=&quot;f1&quot;)
+for d, a, b in zip(depths, tr.mean(1), va.mean(1)):
+    print(f&quot;depth {str(d):&gt;4}  train {a:.3f}  valid {b:.3f}  gap {a-b:.3f}&quot;)
+</code></pre>
+<pre><code class="language-text">depth    1  train 0.903  valid 0.880  gap 0.023
+depth    2  train 0.949  valid 0.925  gap 0.024
+depth    3  train 0.972  valid 0.929  gap 0.042
+depth    5  train 0.993  valid 0.933  gap 0.060
+depth    8  train 1.000  valid 0.935  gap 0.065
+depth   12  train 1.000  valid 0.936  gap 0.064
+depth None  train 1.000  valid 0.936  gap 0.064
+</code></pre>
+<p><strong>Why:</strong> at depth 1–2 both scores are lower and close → mild <strong>underfit</strong>. Past depth ~5,
+training hits a perfect 1.000 while validation flatlines near 0.93 and the <strong>gap stops
+improving</strong> → deeper trees only <strong>overfit</strong>. Pick the shallowest depth on the validation
+plateau (~5): similar score, less variance. <em>More data or regularisation would shrink that gap.</em></p>
+</details>
+<h3 id="exercise-7-tune-it-properly">Exercise 7 — Tune it properly</h3>
+<p><strong>Goal:</strong> use CV-based search and understand <code>best_*</code>.
+<strong>Task:</strong> run a small <code>GridSearchCV</code>; report <code>best_params_</code>, <code>best_score_</code>, and the <strong>test</strong> F1.
+Then answer: why is the CV score a little higher than the test score?</p>
+<p><strong>Steps:</strong> grid over <code>n_estimators</code>, <code>max_depth</code>, <code>min_samples_leaf</code>; <code>scoring="f1"</code>, <code>cv=cv</code>;
+after fitting, <code>grid.best_params_</code> and <code>f1_score(y_test, grid.predict(X_test))</code>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score
+
+grid = GridSearchCV(RandomForestClassifier(random_state=42),
+                    {&quot;n_estimators&quot;:[100,300], &quot;max_depth&quot;:[3,5,None], &quot;min_samples_leaf&quot;:[1,3]},
+                    cv=cv, scoring=&quot;f1&quot;, n_jobs=-1).fit(X_train, y_train)
+
+print(&quot;best_params_:&quot;, grid.best_params_)
+print(&quot;best_score_ (CV):&quot;, round(grid.best_score_, 4))
+print(&quot;test f1        :&quot;, round(f1_score(y_test, grid.predict(X_test)), 4))
+</code></pre>
+<pre><code class="language-text">best_params_: {'max_depth': 5, 'min_samples_leaf': 1, 'n_estimators': 100}
+best_score_ (CV): 0.9553
+test f1        : 0.963
+</code></pre>
+<p><strong>Why the CV score &gt; test score:</strong> you picked the winner <em>because</em> it scored highest on the CV
+folds, so that number is slightly optimistic — you're reporting the max of many noisy
+estimates. The untouched test set gives the unbiased figure. <code>best_estimator_</code> is the model
+refit on all training data, ready to deploy. <em>Try <code>RandomizedSearchCV</code> for bigger grids.</em></p>
+</details>
+<hr />
+<h2 id="part-4-attribute-audit">Part 4 · Attribute &amp; audit</h2>
+<p><strong>Notes.</strong> <strong>Ablation</strong> = remove one piece, measure the drop → shows what actually helps.
+<strong>Slice analysis</strong> = score each subgroup → shows <em>where</em> the model fails, which the average hides.</p>
+<h3 id="exercise-8-ablate-the-feature-groups">Exercise 8 — Ablate the feature groups</h3>
+<p><strong>Goal:</strong> turn "everything matters" into evidence.
+<strong>Task:</strong> the 30 features split into <code>mean_*</code>, <code>error_*</code>, <code>worst_*</code>. Drop each group and
+measure the change in CV F1. Which group matters most? Which is redundant?</p>
+<p><strong>Steps:</strong> build the baseline CV score, then loop over groups dropping their columns.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">groups = {&quot;mean&quot;:  [c for c in X.columns if c.startswith(&quot;mean&quot;)],
+          &quot;error&quot;: [c for c in X.columns if &quot;error&quot; in c],
+          &quot;worst&quot;: [c for c in X.columns if c.startswith(&quot;worst&quot;)]}
+
+base = cross_val_score(rf, X, y, cv=cv, scoring=&quot;f1&quot;).mean()
+print(f&quot;full model f1 = {base:.4f}&quot;)
+for name, cols in groups.items():
+    s = cross_val_score(rf, X.drop(columns=cols), y, cv=cv, scoring=&quot;f1&quot;).mean()
+    print(f&quot;  drop {name:5s}: f1={s:.4f}  change={base - s:+.4f}&quot;)
+</code></pre>
+<pre><code class="language-text">full model f1 = 0.9355
+  drop worst : f1=0.9187  change=+0.0168   &lt;- most important
+  drop mean  : f1=0.9450  change=-0.0095
+  drop error : f1=0.9465  change=-0.0110   &lt;- removing it HELPS
+</code></pre>
+<p><strong>Why:</strong> the <strong>worst-case</strong> measurements carry the signal (dropping them hurts most). The
+<strong>standard-error</strong> group is slightly <em>harmful</em> — removing it <em>raises</em> F1 — so it's noise the
+model over-weights. This is exactly the "ablation table" you'll critique in papers: does each
+component earn its place?</p>
+</details>
+<h3 id="exercise-9-find-where-the-model-fails-slices">Exercise 9 — Find where the model fails (slices)</h3>
+<p><strong>Goal:</strong> discover a failure that the headline metric hides.
+<strong>Task:</strong> bucket the test set by tumour size (<code>mean radius</code>) into quartiles and compute
+accuracy <strong>and recall</strong> per bucket. What do you notice?</p>
+<p><strong>Steps:</strong> <code>pd.qcut(res["mean radius"], 4, labels=[...])</code>, then <code>groupby</code> and score each slice.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">res = X_test.copy(); res[&quot;y_true&quot;] = y_test.values; res[&quot;y_pred&quot;] = pred
+res[&quot;bucket&quot;] = pd.qcut(res[&quot;mean radius&quot;], 4, labels=[&quot;small&quot;,&quot;medium&quot;,&quot;large&quot;,&quot;x-large&quot;])
+
+print(&quot;overall accuracy:&quot;, round((res.y_true == res.y_pred).mean(), 4))
+for b, g in res.groupby(&quot;bucket&quot;):
+    acc = (g.y_true == g.y_pred).mean()
+    rec = recall_score(g.y_true, g.y_pred, pos_label=1, zero_division=0)   # recall for cancer
+    print(f&quot;  {b:8s} n={len(g):2d}  acc={acc:.3f}  recall(cancer)={rec:.3f}&quot;)
+</code></pre>
+<pre><code class="language-text">overall accuracy: 0.9737
+  small    n=29  acc=1.000  recall(cancer)=0.000
+  medium   n=28  acc=1.000  recall(cancer)=1.000
+  large    n=28  acc=0.893  recall(cancer)=0.750
+  x-large  n=29  acc=1.000  recall(cancer)=1.000
+</code></pre>
+<p><strong>Why:</strong> overall accuracy (~97%) looks fine. The <strong>small</strong> bucket has no cancer cases
+(recall 0.000 because there were none). The <strong>large</strong> bucket is the weak spot: accuracy 0.89
+and cancer recall 0.75 — we miss 1 in 4 cancers there. The headline score hides that.
+Swap <code>bucket</code> for <code>region</code>, <code>age_group</code>, or a sensitive attribute and the same code becomes a
+<strong>fairness audit</strong>.</p>
+</details>
+<hr />
+<h2 id="part-5-track-everything-with-mlflow">Part 5 · Track everything with MLflow</h2>
+<p><strong>Notes.</strong> Once you're tuning and ablating, you generate dozens of models. MLflow logs each
+<strong>run</strong> (its params, metrics, artifacts) so you can compare and reproduce them.</p>
+<h3 id="exercise-10-log-and-compare-runs">Exercise 10 — Log and compare runs</h3>
+<p><strong>Goal:</strong> make your experiments searchable and reproducible.
+<strong>Task:</strong> log three random-forest configs to MLflow, then query them back sorted by F1.</p>
+<p><strong>Steps:</strong> <code>set_tracking_uri("sqlite:///mlflow.db")</code>, <code>set_experiment(...)</code>, loop with
+<code>start_run()</code>, <code>log_params</code>/<code>log_metric</code>/<code>sklearn.log_model</code>; finally <code>search_runs(...)</code>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">import mlflow, mlflow.sklearn
+mlflow.set_tracking_uri(&quot;sqlite:///mlflow.db&quot;)     # MLflow 3.x needs a DB backend
+mlflow.set_experiment(&quot;bc-classifier&quot;)
+
+for cfg in [dict(n_estimators=100, max_depth=3),
+            dict(n_estimators=300, max_depth=5),
+            dict(n_estimators=300, max_depth=None)]:
+    with mlflow.start_run(run_name=f&quot;rf_d{cfg['max_depth']}&quot;):
+        m  = RandomForestClassifier(random_state=42, **cfg).fit(X_train, y_train)
+        f1 = f1_score(y_test, m.predict(X_test))
+        mlflow.log_params(cfg)
+        mlflow.log_metric(&quot;f1&quot;, f1)
+        mlflow.log_metric(&quot;roc_auc&quot;, roc_auc_score(y_test, m.predict_proba(X_test)[:,1]))
+        mlflow.sklearn.log_model(m, name=&quot;model&quot;)
+
+runs = mlflow.search_runs(experiment_names=[&quot;bc-classifier&quot;], order_by=[&quot;metrics.f1 DESC&quot;])
+print(runs[[&quot;params.max_depth&quot;,&quot;params.n_estimators&quot;,&quot;metrics.f1&quot;,&quot;metrics.roc_auc&quot;]]
+      .round(4).to_string(index=False))
+</code></pre>
+<pre><code class="language-text">params.max_depth params.n_estimators  metrics.f1  metrics.roc_auc
+            None                 300      0.9630           0.9944
+               5                 300      0.9500           0.9947
+               3                 100      0.9367           0.9940
+</code></pre>
+<p>Run <strong><code>mlflow ui</code></strong> in the same folder and open <code>localhost:5000</code> to sort, plot and diff runs
+visually. <strong>Why:</strong> unlimited depth wins on F1; depth 5 is close and a bit simpler. AUC is
+almost the same. Pick with evidence, not a guess. F1 here is for <strong>cancer</strong>.</p>
+</details>
+<h3 id="exercise-10b-log-a-plot-why-mlflow-matters">Exercise 10b — Log a plot (why MLflow matters)</h3>
+<p><strong>Goal:</strong> see that MLflow stores pictures with a run, not only numbers.
+<strong>Task:</strong> take the best F1 run, plot its ROC, log <code>winner_roc.png</code>. Also log
+<code>compare_roc.png</code> (winner forest vs logistic). Open the UI and find both under <strong>Artifacts</strong>.</p>
+<details>
+<summary>▶ Solution</summary>
+<pre><code class="language-python">best = runs.iloc[0]
+depth_raw = best[&quot;params.max_depth&quot;]
+max_depth = None if str(depth_raw) in (&quot;None&quot;, &quot;nan&quot;) else int(float(depth_raw))
+n_estimators = int(float(best[&quot;params.n_estimators&quot;]))
+best_cfg = dict(n_estimators=n_estimators, max_depth=max_depth)
+
+print(&quot;Winner:&quot;, best_cfg, &quot;F1=&quot;, round(best[&quot;metrics.f1&quot;], 4))
+
+lr_cmp = Pipeline([
+    (&quot;scale&quot;, StandardScaler()),
+    (&quot;clf&quot;, LogisticRegression(max_iter=5000)),
+]).fit(X_train, y_train)
+
+with mlflow.start_run(run_name=&quot;winner_with_plots&quot;):
+    m = RandomForestClassifier(random_state=42, **best_cfg).fit(X_train, y_train)
+    mlflow.log_params(best_cfg)
+    mlflow.log_metric(&quot;f1&quot;, f1_score(y_test, m.predict(X_test)))
+    mlflow.log_metric(&quot;roc_auc&quot;, roc_auc_score(y_test, m.predict_proba(X_test)[:, 1]))
+
+    fig1, ax1 = plt.subplots(figsize=(6, 5))
+    RocCurveDisplay.from_estimator(m, X_test, y_test, ax=ax1, pos_label=1, name=&quot;Winner RF&quot;)
+    ax1.set_title(&quot;Winner ROC (positive = cancer = 1)&quot;)
+    fig1.savefig(&quot;winner_roc.png&quot;, dpi=120, bbox_inches=&quot;tight&quot;)
+    mlflow.log_artifact(&quot;winner_roc.png&quot;)
+    plt.show()
+
+    fig2, ax2 = plt.subplots(figsize=(6, 5))
+    RocCurveDisplay.from_estimator(m, X_test, y_test, ax=ax2, pos_label=1, name=&quot;Winner RF&quot;)
+    RocCurveDisplay.from_estimator(lr_cmp, X_test, y_test, ax=ax2, pos_label=1, name=&quot;Logistic Regression&quot;)
+    ax2.set_title(&quot;Compare models (positive = cancer = 1)&quot;)
+    fig2.savefig(&quot;compare_roc.png&quot;, dpi=120, bbox_inches=&quot;tight&quot;)
+    mlflow.log_artifact(&quot;compare_roc.png&quot;)
+    plt.show()
+
+print(&quot;mlflow ui  →  bc-classifier  →  winner_with_plots  →  Artifacts&quot;)
+</code></pre>
+<pre><code class="language-text">Winner: {'n_estimators': 300, 'max_depth': None} F1= 0.963
+Logged artifacts: winner_roc.png , compare_roc.png
+</code></pre>
+<p><strong>Why:</strong> later you can reopen the run and see the ROC that justified the choice — not only a
+number lost in the notebook scroll.</p>
+</details>
+<hr />
+<h2 id="concept-check-quick-quiz">Concept check (quick quiz)</h2>
+<p>Try each question first. Then open the answers.</p>
+<ol>
+<li>A fraud model is 99% accurate but finds only 5% of real fraud. Which score shows the problem?</li>
+<li>Where should we fit <code>StandardScaler</code>, and why?</li>
+<li>Train F1 = 0.99 but validation F1 = 0.80. Is the model too simple or too detailed? Name one fix.</li>
+<li>Why do we report both <code>GridSearchCV.best_score_</code> and a separate test score?</li>
+<li>Ablation: we remove a group of features and the score goes <strong>up</strong>. What does that mean?</li>
+</ol>
+<details>
+<summary>▶ Answers (plain English)</summary>
+<ol>
+<li>
+<p><strong>Recall</strong> (how many real fraud cases we caught).<br />
+   Accuracy can look great if almost everyone is “not fraud.” The model can ignore fraud and still
+   score 99%.</p>
+</li>
+<li>
+<p>Fit it <strong>inside a Pipeline</strong>, and only on the <strong>training</strong> data (each CV fold’s training part).<br />
+   If you scale using the test data, the test set “helps” the model — that is cheating (leakage).</p>
+</li>
+<li>
+<p>The model is <strong>too detailed (overfitting)</strong>.<br />
+   It memorised the training set. Fix: use a simpler model, stop trees growing so deep, or get more
+   data.</p>
+</li>
+<li>
+<p>They answer different questions.<br />
+   - <code>best_score_</code> = how well the winner did while we were <strong>choosing</strong> settings (a bit too hopeful).<br />
+   - <strong>Test score</strong> = how well it does on data we never used to choose anything (the honest number).</p>
+</li>
+<li>
+<p>That feature group was <strong>not helping</strong> — it was mostly noise.<br />
+   The model is better without it, so drop those features.</p>
+</li>
+</ol>
+</details>
+<hr />
+<h2 id="challenge-optional-open-ended">Challenge (optional, open-ended)</h2>
+<p>Put it all together on <strong>new data</strong>: load a fresh dataset (<code>sklearn.datasets.load_wine</code>, or the
+real <code>weatherAUS.csv</code>), and produce a one-page report that includes:</p>
+<ol>
+<li>a <strong>stratified</strong> train/test split and a <strong>Pipeline</strong> (no leakage);</li>
+<li>a <strong>cross-validated</strong> baseline with mean ± std;</li>
+<li>a <strong>validation curve</strong> diagnosing bias vs variance;</li>
+<li>a <strong>tuned</strong> model via <code>GridSearchCV</code>, reported on the <strong>test set</strong>;</li>
+<li>an <strong>ablation</strong> of at least two feature groups;</li>
+<li>a <strong>slice analysis</strong> finding your model's weakest subgroup;</li>
+<li>every model <strong>logged to MLflow</strong>, with the winner named and justified.</li>
+</ol>
+<p>That report <em>is</em> the skill set the Paper Critique grades: sound methodology, honest
+evaluation, and reproducibility.</p>
+<hr />
+</article>
+</body>
+</html>

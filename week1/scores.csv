@@ -1,0 +1,6 @@
+student_id,name,math_score,physics_score,chemistry_score,attendance
+1,Alex,85,76,90,0.92
+2,Brian,72,88,74,0.85
+3,Clara,90,82,95,0.96
+4,Diana,68,71,62,0.78
+5,Ethan,78,75,80,0.88
