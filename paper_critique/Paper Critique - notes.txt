@@ -1,0 +1,4 @@
+Paper Critique - Paper List
+Here is the paper list for the "Paper Critique" assessment. Every paper below reports extensive experiments and has an official (or authoritative) public code repository, so you can inspect, and ideally re-run, what the authors did; reproducibility is part of the grade. Prefer a paper linked to a topic or method you used in the labs (scikit-learn, cross-validation, PCA, transformers, embeddings).
+
+14. Lewis et al. (2020); Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (RAG) (NeurIPS) Combines a neural retriever with a generator; experiments across open-domain QA and other knowledge tasks. Connects directly to modern RAG systems; good for critiquing retrieval/generation evaluation.
