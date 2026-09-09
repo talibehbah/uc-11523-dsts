@@ -1,0 +1,20 @@
+# .pre-commit-config.yaml
+# Hint: this file lists the automatic checks to run before each commit
+repos:
+  # 1) black = formatter (fixes code layout automatically)
+  - repo: https://github.com/psf/black
+    rev: 24.4.2          # Hint: rev = tool version (keep as shown)
+    hooks:
+      - id: black        # Hint: id = which check to run from that repo
+
+  # 2) flake8 = linter (reports style problems; does not auto-fix everything)
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.0
+    hooks:
+      - id: flake8
+
+  # 3) nbstripout = clean Jupyter notebooks (remove cell outputs)
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
