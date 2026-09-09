@@ -1,4 +1,6 @@
 import numpy as np
 import pandas as pd
 def predict():
-    print("main version")
+    print("bob threshold 0.5")
+
+ predict()
