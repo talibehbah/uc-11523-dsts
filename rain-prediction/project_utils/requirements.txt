@@ -1,0 +1,5 @@
+numpy
+pandas
+pytest
+flake8
+pre-commit

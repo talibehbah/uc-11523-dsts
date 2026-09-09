@@ -1,0 +1,1462 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>DSTS 11523 · Week 5 Tutorial</title><style>body{font-family:Georgia,'Times New Roman',serif;line-height:1.65;max-width:820px;margin:2rem auto;padding:0 1.25rem 3rem;color:#1a1a1a;background:#fafafa}h1,h2,h3,h4{font-family:system-ui,sans-serif;line-height:1.25}h1{font-size:1.9rem;margin-top:0;border-bottom:2px solid #222;padding-bottom:.4rem}h2{font-size:1.4rem;margin-top:2.2rem;border-bottom:1px solid #ccc;padding-bottom:.3rem}h3{font-size:1.15rem;margin-top:1.6rem}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}th,td{border:1px solid #ccc;padding:.5rem .7rem;text-align:left;vertical-align:top}th{background:#eee}code{font-family:Consolas,monospace;font-size:.9em;background:#eee;padding:.1em .35em;border-radius:3px}pre{padding:1rem 1.1rem;overflow-x:auto;border-radius:6px;font-size:.88rem;border-left:5px solid #888}pre code{background:none;padding:0;color:inherit}pre:has(code.language-bash){background:#1e1e1e;color:#e8e8e8;border-left-color:#0b57d0}pre:has(code.language-text),pre:has(code.language-python),pre:has(code.language-yaml){background:#f3f6f9;color:#222}details{margin:1rem 0;padding:.6rem .9rem;background:#f0f4f8;border:1px solid #c5d0db;border-radius:6px}summary{cursor:pointer;font-weight:600;font-family:system-ui,sans-serif}hr{border:none;border-top:1px solid #ccc;margin:2rem 0}a{color:#0b57d0}</style></head><body><h1>DSTS 11523 · Week 5 Tutorial</h1>
+<h2>Version Control &amp; Collaboration — hands-on lab (2 hours)</h2>
+<p><strong>How to use this tutorial.</strong> Work top to bottom in a terminal. Every exercise has a <strong>Goal</strong>, a <strong>Task</strong>, some <strong>Steps</strong>, and a <strong>▶ Solution</strong> drop-down. <em>Try each exercise before you open the solution.</em></p>
+<p><strong>Attached starter files (Exercises 11–12).</strong> This tutorial package includes ready-made files. Put each one in the <strong>exact</strong> place below (or create them with the Solution commands):</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Put it here (project root = same folder as <code>prediction.py</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ci.yml</code></td>
+<td><code>.github/workflows/ci.yml</code></td>
+</tr>
+<tr>
+<td><code>requirements.txt</code></td>
+<td><code>requirements.txt</code> (project root)</td>
+</tr>
+<tr>
+<td><code>test_prediction.py</code></td>
+<td><code>test_prediction.py</code> (project root)</td>
+</tr>
+<tr>
+<td><code>.pre-commit-config.yaml</code></td>
+<td><code>.pre-commit-config.yaml</code> (project root)</td>
+</tr>
+</tbody>
+</table>
+<h3>How to read the solutions (important)</h3>
+<p>In every solution you will see three kinds of text. Do not mix them up:</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Hint</strong></td>
+<td>Explains a command and its parameters</td>
+<td>Read only — do <strong>not</strong> type it</td>
+</tr>
+<tr>
+<td><strong>Command</strong></td>
+<td>What you type in the terminal</td>
+<td>Type / paste these lines only</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>What Git prints after a command</td>
+<td>Read only — do <strong>not</strong> type it</td>
+</tr>
+</tbody></table>
+<h3>Quick concepts (read once before Part 1)</h3>
+<p>Useful links:</p>
+<ul>
+<li>Git basics (handbook): <a href="https://docs.github.com/en/get-started/git-basics">https://docs.github.com/en/get-started/git-basics</a></li>
+<li>GitHub Desktop (optional GUI app for Windows/macOS): <a href="https://desktop.github.com">https://desktop.github.com</a></li>
+</ul>
+<p><strong>1. Global vs local Git identity</strong></p>
+<p>Global = for <strong>all</strong> projects on this computer:</p>
+<pre><code class="language-bash">git config --global user.name &quot;Ada Student&quot;
+git config --global user.email &quot;ada@uni.edu.au&quot;
+git config --list | grep user
+</code></pre>
+<p>Local = for <strong>this repo only</strong> (run inside the project folder; no <code>--global</code>):</p>
+<pre><code class="language-bash">git config user.name &quot;Ada Student&quot;
+git config user.email &quot;ada@uni.edu.au&quot;
+git config --local --list | grep user
+</code></pre>
+<p><strong>Hint:</strong> local settings override global ones inside that repository.</p>
+<p><strong>2. <code>git init</code></strong><br>Turns the current folder into a Git project by creating a hidden <code>.git/</code> folder. History stays local until you connect GitHub later. Do <strong>not</strong> run <code>git init</code> inside a project you already got with <code>git clone</code>.</p>
+<p><strong>3. <code>git status</code> basics</strong></p>
+<ul>
+<li><code>Untracked files</code> = Git sees the file but is not saving it yet → use <code>git add</code></li>
+<li><code>nothing to commit, working tree clean</code> = all saved; no new edits waiting</li>
+</ul>
+<p><strong>4. <code>git add</code> then <code>git commit</code></strong></p>
+<ul>
+<li><code>git add prediction.py</code> = put the file in the <strong>staging</strong> area (ready to save)</li>
+<li><code>git commit -m &quot;initial commit&quot;</code> = save a permanent snapshot with a message (<code>-m</code>)</li>
+<li>Staging holds the version from the moment you ran <code>git add</code> — if you edit again, run <code>git add</code> again</li>
+</ul>
+<p><strong>5. Harmless Windows note</strong><br><code>LF will be replaced by CRLF</code> is usually safe on Windows. Optional:</p>
+<pre><code class="language-bash">git config --global core.autocrlf true
+</code></pre>
+<p><strong>6. <code>create mode 100644</code></strong><br>Means a normal file (not a password/key). <code>644</code> = you can read/write; others can read.</p>
+<p><strong>7. Commit IDs and <code>HEAD</code></strong><br>Codes like <code>e63c1af</code> are short commit IDs (not secrets). <code>HEAD</code> = the commit you are on right now.</p>
+<p><strong>8. Exit a long <code>git log</code> screen</strong><br>If you see <code>(END)</code> or <code>~</code>, press <strong><code>q</code></strong> to quit.</p>
+<p>We follow one project the whole session — the <strong>rain-prediction model</strong> (<code>prediction.py</code>) from Weeks 3–4 — taking it from an empty folder to an automated GitHub repository. Suggested time budget:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Time</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1 · Setup &amp; first commit</td>
+<td>15 min</td>
+<td>config, init, add, commit, status</td>
+</tr>
+<tr>
+<td>2 · Track &amp; inspect</td>
+<td>30 min</td>
+<td>diff, .gitignore, log family</td>
+</tr>
+<tr>
+<td>3 · Branching &amp; conflicts</td>
+<td>30 min</td>
+<td>branch/switch/merge; resolving a real conflict</td>
+</tr>
+<tr>
+<td>4 · Publish &amp; collaborate on GitHub</td>
+<td>30 min</td>
+<td>remotes, push, pull requests, branch protection</td>
+</tr>
+<tr>
+<td>5 · Automate</td>
+<td>15 min</td>
+<td>GitHub Actions + pre-commit</td>
+</tr>
+</tbody></table>
+<h3>Setup (do this once)</h3>
+<p>Install <a href="https://git-scm.com">Git</a> and open a terminal.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git --version</code> = ask Git to print its version number</li>
+<li><code>--version</code> = “show version” flag</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git --version
+</code></pre>
+<p><strong>Hint:</strong> any version 2.30 or newer is fine.</p>
+<p>Create a workspace folder:</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>mkdir dsts-week5</code> = make a new folder named <code>dsts-week5</code></li>
+<li><code>cd dsts-week5</code> = change directory into that folder</li>
+<li><code>&amp;&amp;</code> = run the next command only if the previous one succeeded</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">mkdir dsts-week5 &amp;&amp; cd dsts-week5
+</code></pre>
+<hr>
+<h2>Part 1 · Setup &amp; first commit <em>(≈ 15 min)</em></h2>
+<p><strong>Notes.</strong> Git needs your name and email so it can label every commit with “who made this change.” Set them once on your computer with <code>--global</code>. When you run <code>git init</code> inside a folder, that folder becomes a Git project. Git creates a hidden <code>.git/</code> folder to store the project history.</p>
+<h3>Exercise 1 — Introduce yourself to Git</h3>
+<p><strong>Goal:</strong> every commit you make from now on will show your name.<br><strong>Task:</strong> tell Git your name and email for this computer, then check it worked.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><code>git config --global user.name &quot;Your Name&quot;</code></li>
+<li><code>git config --global user.email &quot;you@uni.edu.au&quot;</code></li>
+<li><code>git config --list | grep user</code> to confirm.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> use your real name (not your GitHub username). Use your uni email, or the email linked to GitHub.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git config</code> = set or read a Git setting</li>
+<li><code>--global</code> = apply this setting for <strong>all</strong> projects on this computer</li>
+<li><code>user.name &quot;Ada Student&quot;</code> = set the author name shown on commits</li>
+<li><code>user.email &quot;ada@uni.edu.au&quot;</code> = set the author email shown on commits</li>
+<li><code>git config --list</code> = show all Git settings</li>
+<li><code>|</code> = pipe = send output of the left command into the right command</li>
+<li><code>grep user</code> = keep only lines that contain the word <code>user</code></li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git config --global user.name &quot;Ada Student&quot;
+git config --global user.email &quot;ada@uni.edu.au&quot;
+git config --list | grep user
+</code></pre>
+<p><strong>Output (do not type — Git prints this):</strong></p>
+<pre><code class="language-text">user.name=Ada Student
+user.email=ada@uni.edu.au
+</code></pre>
+<p><strong>Why:</strong> Git puts this name and email on every commit as the author.<br>Use <code>--global</code> so it applies to all projects on this computer.<br>If you need a different name for one project only, run the same command <strong>without</strong> <code>--global</code> inside that project folder.</p>
+</details><h3>Exercise 2 — Create the repo and make your first commit</h3>
+<p><strong>Goal:</strong> turn a normal folder into a Git project and save the first snapshot.<br><strong>Task:</strong> create <code>python_project/</code>, add a starter <code>prediction.py</code>, and commit it.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><code>mkdir python_project &amp;&amp; cd python_project</code></li>
+<li><code>git init</code></li>
+<li>Create <code>prediction.py</code> with a few lines of Python.</li>
+<li>Run <code>git status</code> — read what Git says about the new file.</li>
+<li><code>git add prediction.py</code>, then <code>git commit -m &quot;initial commit&quot;</code>.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> create the folder, start Git, then create <code>prediction.py</code> with this content:</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+def predict():
+    print(&quot;baseline&quot;)
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>mkdir python_project</code> = create a new folder</li>
+<li><code>cd python_project</code> = enter that folder</li>
+<li><code>git init</code> = start a new Git repository in the current folder</li>
+<li><code>git status</code> = show which files are new / changed / staged</li>
+<li><code>git add prediction.py</code> = put <code>prediction.py</code> into staging (ready for the next commit)</li>
+<li><code>git commit</code> = save a snapshot</li>
+<li><code>-m &quot;initial commit&quot;</code> = set the commit message (<code>-m</code> = message)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">mkdir python_project &amp;&amp; cd python_project
+git init
+git status
+git add prediction.py
+git commit -m &quot;initial commit&quot;
+</code></pre>
+<p><strong>Output (do not type — example of <code>git status</code> before commit):</strong></p>
+<pre><code class="language-text">On branch main
+
+No commits yet
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+        prediction.py
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)
+</code></pre>
+<p><strong>Hint:</strong> “Untracked” means Git sees the file but has not saved it yet.</p>
+<p><strong>Why:</strong> Think of Git in 3 simple steps:</p>
+<ol>
+<li><strong>Working folder</strong> — your normal files  </li>
+<li><strong>Staging</strong> — files you chose with <code>git add</code>  </li>
+<li><strong>Commit</strong> — a saved snapshot with <code>git commit</code></li>
+</ol>
+<p><code>git status</code> is the most useful command: it tells you where each file is right now.</p>
+</details><hr>
+<h2>Part 2 · Track &amp; inspect <em>(≈ 30 min)</em></h2>
+<p><strong>Notes.</strong> After your first commit, you will often repeat this loop: edit a file → <code>git status</code> → <code>git diff</code> → <code>git add</code> → <code>git commit</code>.</p>
+<p>A special file called <code>.gitignore</code> tells Git: “do <strong>not</strong> track these files.” Use it for things you should not save in the repo, such as:</p>
+<ul>
+<li>big datasets (<code>data/</code>)</li>
+<li>secret keys (<code>.env</code>)</li>
+<li>temporary files (<code>__pycache__/</code>, <code>*.pyc</code>)</li>
+</ul>
+<p>Then use <code>git log</code> to read the project’s history (past commits).</p>
+<h3>Exercise 3 — Edit, diff, stage, commit</h3>
+<p><strong>Goal:</strong> see why <code>git diff</code> and <code>git diff --staged</code> show different things.<br><strong>Task:</strong> change one line in <code>prediction.py</code>. Check the diff <em>before</em> you stage, then <em>after</em>, then commit.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Open <code>prediction.py</code> and change <code>&quot;baseline&quot;</code> to <code>&quot;main version&quot;</code>.</li>
+<li>Run <code>git diff</code> — shows edits not staged yet.</li>
+<li><code>git add prediction.py</code>.</li>
+<li>Run <code>git diff</code> again (should be empty) and <code>git diff --staged</code> (shows what will go into the next commit).</li>
+<li><code>git commit -m &quot;update message&quot;</code>.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> first edit <code>prediction.py</code> in your editor. Change <code>print(&quot;baseline&quot;)</code> to <code>print(&quot;main version&quot;)</code>. Save the file. Then type only the command below.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git diff</code> = show unstaged changes (edited file vs staging area)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git diff
+</code></pre>
+<p><strong>Output (do not type — Git prints this):</strong></p>
+<pre><code class="language-text">diff --git a/prediction.py b/prediction.py
+index 6c74eee..2c7334e 100644
+--- a/prediction.py
++++ b/prediction.py
+@@ -1,4 +1,4 @@
+ import numpy as np
+ import pandas as pd
+ def predict():
+-    print(&quot;baseline&quot;)
++    print(&quot;main version&quot;)
+</code></pre>
+<p><strong>Hint:</strong> in the output, <code>-</code> means removed line, <code>+</code> means added line. The lines starting with <code>diff --git</code> are <strong>not</strong> commands.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git add prediction.py</code> = stage this file</li>
+<li><code>git diff</code> = show unstaged changes (should be empty after <code>git add</code>)</li>
+<li><code>git diff --staged</code> = show staged changes (what the next commit will save)</li>
+<li><code>--staged</code> = look at staging area vs last commit</li>
+<li><code>git commit -m &quot;update message&quot;</code> = save snapshot with message <code>update message</code></li>
+</ul>
+<p><strong>Command (type this next):</strong></p>
+<pre><code class="language-bash">git add prediction.py
+git diff
+git diff --staged
+git commit -m &quot;update message&quot;
+</code></pre>
+<p><strong>Why:</strong>  </p>
+<ul>
+<li><code>git diff</code> shows changes you made in the file but have <strong>not</strong> staged yet.  </li>
+<li><code>git diff --staged</code> shows changes you already staged with <code>git add</code>.</li>
+</ul>
+<p>About <code>@@ -1,4 +1,4 @@</code>: it just means “look near line 1 for about 4 lines.” You do not need to memorize it.<br>Focus on: Red <code>-</code> = removed, Green <code>+</code> = added.</p>
+</details><h3>Exercise 4 — Keep data and secrets out of the repo</h3>
+<p><strong>Goal:</strong> learn <code>.gitignore</code> so Git ignores files you never want to commit.<br><strong>Task:</strong> make a small data-science style mess — a <code>data/</code> folder with a CSV, and a <code>.env</code> file with a fake secret. Both should stay out of Git.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><code>mkdir -p data &amp;&amp; echo &quot;day,rain&quot; &gt; data/weather.csv</code></li>
+<li><code>echo &quot;SECRET=xyz&quot; &gt; .env</code></li>
+<li>Run <code>git status</code> — Git should list both as untracked.</li>
+<li>Create <code>.gitignore</code> and list: <code>data/</code>, <code>.env</code>, <code>__pycache__/</code>, <code>*.pyc</code>.</li>
+<li>Stage and commit <strong>only</strong> <code>.gitignore</code>, then check that <code>git status</code> is clean.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> we create fake data and a fake secret only to practice ignoring them. Do not commit real secrets.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>mkdir -p data</code> = create folder <code>data</code> (<code>-p</code> = also create parents if needed; no error if it exists)</li>
+<li><code>echo &quot;day,rain&quot;</code> = print this text</li>
+<li><code>&gt;</code> = write that text into a file (overwrite)</li>
+<li><code>data/weather.csv</code> = the file being created</li>
+<li><code>echo &quot;SECRET=xyz&quot; &gt; .env</code> = create a fake secret file named <code>.env</code></li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">mkdir -p data &amp;&amp; echo &quot;day,rain&quot; &gt; data/weather.csv
+echo &quot;SECRET=xyz&quot; &gt; .env
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>cat &gt; .gitignore &lt;&lt; &#39;EOF&#39; ... EOF</code> = create/overwrite <code>.gitignore</code> with the lines between the two <code>EOF</code> markers</li>
+<li><code>&#39;EOF&#39;</code> = end marker for the text block</li>
+<li>each line inside = a pattern Git should ignore</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">cat &gt; .gitignore &lt;&lt; &#39;EOF&#39;
+data/
+.env
+__pycache__/
+*.pyc
+EOF
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git add .gitignore</code> = stage only the ignore rules file</li>
+<li><code>git commit -m &quot;add gitignore&quot;</code> = save it (<code>-m</code> = message)</li>
+<li><code>git status</code> = confirm the working tree is clean</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git add .gitignore
+git commit -m &quot;add gitignore&quot;
+git status
+</code></pre>
+<p><strong>Output (do not type — Git prints this):</strong></p>
+<pre><code class="language-text">On branch main
+nothing to commit, working tree clean
+</code></pre>
+<p><strong>Hint:</strong> “clean” means Git is ignoring <code>data/</code> and <code>.env</code>, as we wanted.</p>
+<p><strong>Why:</strong> <code>.gitignore</code> does <strong>not</strong> delete files from your computer. It only tells Git to ignore them. Add <code>.gitignore</code> early. If you commit a secret by mistake, deleting the file later is <strong>not</strong> enough — treat the key as leaked and replace it.</p>
+</details><h3>Exercise 5 — Read the story so far</h3>
+<p><strong>Goal:</strong> learn the <code>git log</code> variants you&#39;ll actually use.<br><strong>Task:</strong> make one more small change and commit it, then explore the log.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Append any line to <code>prediction.py</code> (e.g. <code>print(2+2)</code>) and <code>git commit -am &quot;small tweak&quot;</code>.</li>
+<li>Try <code>git log --oneline</code>, <code>git log --stat -1</code>, and <code>git log --oneline --graph --all</code>.</li>
+<li>Copy a SHA from the output and inspect that single commit with <code>git show &lt;SHA&gt;</code>.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> first add a small line to <code>prediction.py</code> (for example <code>print(2+2)</code>), save it, then run the commands below.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git commit -am &quot;small tweak&quot;</code> = stage changed <strong>tracked</strong> files and commit in one step</li>
+<li><code>-a</code> = auto-stage modified tracked files</li>
+<li><code>-m &quot;small tweak&quot;</code> = commit message</li>
+<li><code>git log</code> = show commit history</li>
+<li><code>--oneline</code> = short view (one line per commit)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;small tweak&quot;
+git log --oneline
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">e63c1af small tweak
+b95ec55 add gitignore
+9e20d45 update message
+42bd3f2 initial commit
+</code></pre>
+<p><strong>Hint:</strong> left side is a short commit ID (SHA), right side is the message.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git log --stat -1</code> = show the newest commit with file-change stats</li>
+<li><code>--stat</code> = list which files changed and how much</li>
+<li><code>-1</code> = show only the latest 1 commit</li>
+<li>optional later: <code>git log --oneline --graph --all</code><ul>
+<li><code>--graph</code> = draw branch lines</li>
+<li><code>--all</code> = show all branches</li>
+</ul>
+</li>
+<li>optional: <code>git show e63c1af</code> = show full details of one commit ID</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git log --stat -1
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">commit e63c1afcc36a638d151f1749a9996a4e3f43f068
+Author: Ada Student &lt;ada@uni.edu.au&gt;
+Date:   Tue Sep 8 06:21:44 2026 +0000
+
+    small tweak
+
+ prediction.py | 1 +
+ 1 file changed, 1 insertion(+)
+</code></pre>
+<p><strong>Why:</strong>  </p>
+<ul>
+<li>Each commit has an ID (like <code>e63c1af</code>).  </li>
+<li><code>HEAD</code> means “the commit you are on right now.”  </li>
+<li><code>-am</code> does <strong>not</strong> add brand-new files — for a new file, still use <code>git add</code>.</li>
+</ul>
+<p>(End of solution.)</p>
+</details><hr>
+<h2>Part 3 · Branching &amp; conflicts <em>(≈ 30 min)</em></h2>
+<p><strong>Notes.</strong> A <strong>branch</strong> is a separate line of work. Good habit: keep <code>main</code> safe and working. Do new work on a feature branch, then merge it back into <code>main</code>.</p>
+<p>If two branches change the <strong>same line</strong> in the same file, Git cannot choose automatically. That is called a <strong>merge conflict</strong>. You must open the file and choose what to keep.</p>
+<h3>Exercise 6 — Branch, edit, merge (the clean case)</h3>
+<p><strong>Goal:</strong> practice the normal branch → edit → merge flow (no conflict).<br><strong>Task:</strong> add a new metric function on a branch, then merge it into <code>main</code>.<br><strong>Also check:</strong> look at <code>prediction.py</code> on <code>main</code> <strong>before</strong> the merge and <strong>after</strong> the merge, so you can see what changed.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><code>git checkout -b feature/add-metric</code> (create AND switch in one step).</li>
+<li>Append an <code>rmse</code> function to <code>prediction.py</code>, then <code>git commit -am &quot;add rmse metric&quot;</code>.</li>
+<li><code>git checkout main</code>.</li>
+<li><strong>Show the file on <code>main</code> before merge:</strong> <code>cat prediction.py</code> (or open it in your editor). Notice: there is <strong>no</strong> <code>rmse</code> function yet.</li>
+<li><code>git merge feature/add-metric</code>.</li>
+<li><strong>Show the file on <code>main</code> after merge:</strong> <code>cat prediction.py</code> again. Notice: the <code>rmse</code> function is now there.</li>
+<li><code>git log --oneline --graph --all</code> to see the shape of history.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout -b feature/add-metric</code> = create a new branch and switch to it</li>
+<li><code>-b</code> = create branch</li>
+<li><code>feature/add-metric</code> = branch name (you can choose another name)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout -b feature/add-metric
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>cat &gt;&gt; prediction.py &lt;&lt; &#39;EOF&#39; ... EOF</code> = <strong>append</strong> text to the end of <code>prediction.py</code></li>
+<li><code>&gt;&gt;</code> = append (do not overwrite the whole file)</li>
+<li><code>&#39;EOF&#39;</code> = end marker for the pasted text</li>
+</ul>
+<p><strong>Command (type this to append the function):</strong></p>
+<pre><code class="language-bash">cat &gt;&gt; prediction.py &lt;&lt; &#39;EOF&#39;
+
+def rmse(y, yhat):
+    return ((y - yhat) ** 2).mean() ** 0.5
+EOF
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git commit -am &quot;add rmse metric&quot;</code> = stage tracked changes + commit (<code>-a</code> stage, <code>-m</code> message)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;add rmse metric&quot;
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout main</code> = switch to the <code>main</code> branch</li>
+<li><code>cat prediction.py</code> = print the file content in the terminal (so you can inspect it)</li>
+</ul>
+<p><strong>Command (type this) — switch to main and show file BEFORE merge:</strong></p>
+<pre><code class="language-bash">git checkout main
+cat prediction.py
+</code></pre>
+<p><strong>Output (do not type — example of <code>prediction.py</code> on <code>main</code> BEFORE merge):</strong></p>
+<pre><code class="language-text">import numpy as np
+import pandas as pd
+def predict():
+    print(&quot;main version&quot;)
+print(2+2)
+</code></pre>
+<p><strong>Hint:</strong> on <code>main</code> before the merge, there is <strong>no</strong> <code>rmse</code> function. That function exists only on the feature branch so far.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git merge feature/add-metric</code> = bring the feature branch changes into the current branch (<code>main</code>)</li>
+</ul>
+<p><strong>Command (type this) — merge, then show file AFTER merge:</strong></p>
+<pre><code class="language-bash">git merge feature/add-metric
+cat prediction.py
+</code></pre>
+<p><strong>Output (do not type — example merge message):</strong></p>
+<pre><code class="language-text">Updating e63c1af..efd3de0
+Fast-forward
+ prediction.py | 3 +++
+ 1 file changed, 3 insertions(+)
+</code></pre>
+<p><strong>Output (do not type — example of <code>prediction.py</code> on <code>main</code> AFTER merge):</strong></p>
+<pre><code class="language-text">import numpy as np
+import pandas as pd
+def predict():
+    print(&quot;main version&quot;)
+print(2+2)
+
+def rmse(y, yhat):
+    return ((y - yhat) ** 2).mean() ** 0.5
+</code></pre>
+<p><strong>Hint:</strong> after the merge, <code>main</code> now includes the <code>rmse</code> function. That is the point of merging.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git log --oneline --graph --all</code> = short history with a branch graph for all branches</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git log --oneline --graph --all
+</code></pre>
+<p><strong>Hint:</strong> “Fast-forward” means a clean, simple merge (no conflict).</p>
+<p><strong>Why:</strong> While you worked on the feature branch, <code>main</code> did not change, so Git can move <code>main</code> forward easily. Comparing the file <strong>before</strong> and <strong>after</strong> merge proves the feature landed on <code>main</code>. Tip: <code>git switch</code> can also change branches.</p>
+</details><h3>Exercise 7 — Team conflict: two members edit the same function</h3>
+<p><strong>Story (what this simulates):</strong><br>Imagine <strong>two team members</strong> work at the same time:</p>
+<table>
+<thead>
+<tr>
+<th>Person</th>
+<th>Branch</th>
+<th>What they change</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Ada</strong></td>
+<td><code>feature/ada-threshold</code></td>
+<td>edits the same <code>predict()</code> line to <code>print(&quot;ada threshold 0.7&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>Bob</strong></td>
+<td><code>feature/bob-threshold</code></td>
+<td>edits the same <code>predict()</code> line to <code>print(&quot;bob threshold 0.5&quot;)</code></td>
+</tr>
+</tbody></table>
+<p>Both want their work on <code>main</code>.  </p>
+<ol>
+<li>Ada merges first → <strong>no conflict</strong> (clean).  </li>
+<li>Bob merges next → <strong>conflict</strong>, because <code>main</code> and Bob both changed the <strong>same line</strong> of the <strong>same function</strong>.  </li>
+<li>You resolve it (choose one version), then finish the merge.</li>
+</ol>
+<p><strong>Goal:</strong> feel a real team conflict, then fix it safely.<br><strong>Task:</strong> create two branches, change the same <code>predict()</code> line on each, merge both into <code>main</code>, resolve the conflict.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>From <code>main</code>, create Ada’s branch: <code>git checkout -b feature/ada-threshold</code>. Edit <code>predict()</code> to <code>print(&quot;ada threshold 0.7&quot;)</code>. Commit.</li>
+<li>Go back to <code>main</code>. Create Bob’s branch: <code>git checkout -b feature/bob-threshold</code>. Edit the <strong>same</strong> <code>predict()</code> line to <code>print(&quot;bob threshold 0.5&quot;)</code>. Commit.</li>
+<li>Switch to <code>main</code>. Show the file: <code>cat prediction.py</code>.</li>
+<li>Merge Ada first: <code>git merge feature/ada-threshold</code> (should succeed). Show the file again.</li>
+<li>Merge Bob next: <code>git merge feature/bob-threshold</code> (should conflict).</li>
+<li>Open <code>prediction.py</code>, read the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, keep <strong>one</strong> version, delete markers.</li>
+<li><code>git add prediction.py</code>, then <code>git commit -m &quot;merge: resolve predict() conflict&quot;</code>. Show the final file and the graph.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> you play both teammates on one computer by switching branches.</p>
+<hr>
+<h4>Step 1 — Ada’s branch (team member 1)</h4>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout -b feature/ada-threshold</code> = create + switch to Ada’s branch</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout -b feature/ada-threshold
+</code></pre>
+<p><strong>Hint — how to edit (same file, not a new file):</strong></p>
+<ol>
+<li>Open the existing <code>prediction.py</code> in your project folder (VS Code / Cursor / Notepad).</li>
+<li>Find the line inside <code>predict()</code> that looks like <code>print(&quot;...&quot;)</code>.</li>
+<li>Change <strong>only that line</strong> to:</li>
+</ol>
+<pre><code class="language-python">    print(&quot;ada threshold 0.7&quot;)
+</code></pre>
+<ol start="4">
+<li><strong>Save</strong> the file (<code>Ctrl+S</code>).</li>
+<li>Do <strong>not</strong> create a second <code>prediction.py</code>.</li>
+</ol>
+<p>Then run the commit command below.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git commit -am &quot;...&quot;</code> = <code>-a</code> stage tracked edits, <code>-m</code> message</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;ada: set threshold 0.7&quot;
+</code></pre>
+<hr>
+<h4>Step 2 — Bob’s branch (team member 2)</h4>
+<p><strong>Hint:</strong> start Bob’s branch from the original <code>main</code> (not from Ada’s branch).</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout main</code> = go back to <code>main</code></li>
+<li><code>git checkout -b feature/bob-threshold</code> = create Bob’s branch from <code>main</code></li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout main
+git checkout -b feature/bob-threshold
+</code></pre>
+<p><strong>Hint — how to edit (same file, not a new file):</strong></p>
+<ol>
+<li>Open the existing <code>prediction.py</code> again.</li>
+<li>Change the <strong>same</strong> <code>print(...)</code> line inside <code>predict()</code> to:</li>
+</ol>
+<pre><code class="language-python">    print(&quot;bob threshold 0.5&quot;)
+</code></pre>
+<ol start="3">
+<li><strong>Save</strong> the file (<code>Ctrl+S</code>).</li>
+<li>You are on Bob’s branch now, so this edit belongs to Bob only.</li>
+</ol>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;bob: set threshold 0.5&quot;
+</code></pre>
+<hr>
+<h4>Step 3 — Merge Ada into <code>main</code> first (clean)</h4>
+<p><strong>Command (type this) — show file BEFORE any merge:</strong></p>
+<pre><code class="language-bash">git checkout main
+cat prediction.py
+</code></pre>
+<p><strong>Hint:</strong> before merges, <code>main</code> still has the old print line (for example <code>&quot;main version&quot;</code>). No Ada/Bob text yet.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git merge feature/ada-threshold</code> = bring Ada’s commits into <code>main</code></li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git merge feature/ada-threshold
+cat prediction.py
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">Updating ....
+Fast-forward
+ prediction.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre>
+<p><strong>Hint:</strong> after Ada’s merge, <code>predict()</code> on <code>main</code> shows <code>print(&quot;ada threshold 0.7&quot;)</code>. No conflict yet.</p>
+<hr>
+<h4>Step 4 — Merge Bob into <code>main</code> (conflict happens)</h4>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git merge feature/bob-threshold
+</code></pre>
+<p><strong>Output (do not type — Git prints this):</strong></p>
+<pre><code class="language-text">Auto-merging prediction.py
+CONFLICT (content): Merge conflict in prediction.py
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p><strong>Hint:</strong> conflict = both branches changed the <strong>same line</strong> of <code>predict()</code>, and Git cannot choose.</p>
+<p>Open <code>prediction.py</code>. You will see markers like this (<strong>file content</strong>, not a command):</p>
+<pre><code class="language-python">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    print(&quot;ada threshold 0.7&quot;)
+=======
+    print(&quot;bob threshold 0.5&quot;)
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/bob-threshold
+</code></pre>
+<p><strong>Hint — how to read the markers:</strong></p>
+<ul>
+<li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> … above <code>=======</code> = current branch (<code>main</code>, which already has Ada’s change)</li>
+<li>below <code>=======</code> … <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/bob-threshold</code> = Bob’s incoming change</li>
+</ul>
+<p><strong>Decide (example):</strong> keep Bob’s line. Delete the markers and Ada’s line, so the function ends up as:</p>
+<pre><code class="language-python">def predict():
+    print(&quot;bob threshold 0.5&quot;)
+</code></pre>
+<p><strong>Hint:</strong> you may keep Ada’s line instead — either choice is fine. The important part is: remove <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</p>
+<hr>
+<h4>Step 5 — Finish the merge and check the result</h4>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git add prediction.py</code> = mark conflict as resolved</li>
+<li><code>git commit -m &quot;...&quot;</code> = save the merge commit</li>
+<li><code>cat prediction.py</code> = show final file content</li>
+<li><code>git log --oneline --graph --all</code> = show history graph</li>
+<li>bail-out: <code>git merge --abort</code> = cancel the merge if you want to restart</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git add prediction.py
+git commit -m &quot;merge: resolve predict() conflict (keep bob)&quot;
+cat prediction.py
+git log --oneline --graph --all
+</code></pre>
+<p><strong>Output (do not type — example final file):</strong></p>
+<pre><code class="language-text">import numpy as np
+import pandas as pd
+def predict():
+    print(&quot;bob threshold 0.5&quot;)
+print(2+2)
+
+def rmse(y, yhat):
+    return ((y - yhat) ** 2).mean() ** 0.5
+</code></pre>
+<p><strong>Output (do not type — example graph):</strong></p>
+<pre><code class="language-text">*   a1b2c3d merge: resolve predict() conflict (keep bob)
+|\
+| * b0b1111 bob: set threshold 0.5
+* | a0a1111 ada: set threshold 0.7
+|/
+* efd3de0 add rmse metric
+...
+</code></pre>
+<p><strong>Why:</strong> this is normal team work. Two people edited the same function → Git asks a human to choose. Conflicts are not “Git broken”; they are “Git needs a decision.” In VS Code you can click <strong>Accept Current / Incoming / Both</strong>.</p>
+</details><hr>
+<h2>Part 4 · Publish &amp; collaborate on GitHub <em>(≈ 30 min)</em></h2>
+<p><strong>Notes.</strong> A <strong>remote</strong> is a copy of your project on the internet (usually GitHub).  </p>
+<ul>
+<li><code>git push</code> = send your commits to GitHub  </li>
+<li><code>git pull</code> = download new commits from GitHub</li>
+</ul>
+<p>On GitHub, teams usually use a <strong>Pull Request (PR)</strong>: you push a branch, open a PR into <code>main</code>, others can review it, checks can run, then you merge.</p>
+<h3>Exercise 8 — Publish the repo to GitHub</h3>
+<p><strong>Goal:</strong> upload your local project to GitHub.<br><strong>Task:</strong> follow the numbered example below from start to finish.</p>
+<p><strong>Before you start (very important):</strong><br>GitHub does <strong>not</strong> accept your normal password for <code>git push</code>.<br>In this exercise we use <strong>GitHub CLI (<code>gh</code>)</strong> so login is easy.</p>
+<p><strong>Where to run commands:</strong><br>Open Git Bash (or your terminal), then go into <strong>your</strong> project folder — the folder that already contains both <code>prediction.py</code> and <code>.git</code>.</p>
+<p><strong>Command (type this — change the path to yours):</strong></p>
+<pre><code class="language-bash">cd /path/to/your/python_project
+</code></pre>
+<p><strong>Hint — how to know you are in the right folder:</strong></p>
+<pre><code class="language-bash">ls
+</code></pre>
+<p>You should see <code>prediction.py</code> (and maybe <code>.gitignore</code>, <code>data</code>, etc.).<br>Also check Git is active here:</p>
+<pre><code class="language-bash">git status
+</code></pre>
+<p>If that works (no “not a git repository” error), you are in the correct folder.<br>Do <strong>not</strong> copy someone else’s full Desktop path — every student’s folder location can be different.</p>
+<hr>
+<h4>Example — do these steps in order</h4>
+<details><summary>▶ Solution (follow Step 1 → Step 7)</summary><h5>Step 1 — Check that GitHub CLI is installed</h5>
+<p><strong>Hint — command meaning:</strong><br><code>gh --version</code> = show if GitHub CLI is installed.</p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">gh --version
+</code></pre>
+<p><strong>What good looks like:</strong> you see a version number, for example <code>gh version 2.x.x</code>.</p>
+<p><strong>If it fails (“command not found”):</strong></p>
+<ol>
+<li>Install GitHub CLI from <a href="https://cli.github.com">https://cli.github.com</a></li>
+<li>Close the terminal</li>
+<li>Open a new Git Bash</li>
+<li>Run <code>gh --version</code> again</li>
+</ol>
+<hr>
+<h5>Step 2 — Log in to GitHub from the terminal</h5>
+<p><strong>Hint — command meaning:</strong><br><code>gh auth login</code> = sign in to your GitHub account in the terminal.</p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">gh auth login
+</code></pre>
+<p><strong>What to choose on the screen (use arrow keys + Enter):</strong></p>
+<ol>
+<li><code>GitHub.com</code></li>
+<li><code>HTTPS</code></li>
+<li><code>Login with a web browser</code></li>
+<li>Copy the one-time code shown in the terminal</li>
+<li>Press Enter, then paste/confirm the code in the browser</li>
+<li>Allow access</li>
+</ol>
+<p><strong>Then check login:</strong></p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">gh auth status
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">✓ Logged in to github.com as YOUR_USERNAME
+</code></pre>
+<p><strong>Hint:</strong> replace in your mind <code>YOUR_USERNAME</code> with your real GitHub username.</p>
+<hr>
+<h5>Step 3 — Make sure your branch is called <code>main</code></h5>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git branch -M main</code> = rename current branch to <code>main</code></li>
+<li><code>-M</code> = force rename</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git branch -M main
+</code></pre>
+<p><strong>Check:</strong></p>
+<pre><code class="language-bash">git branch
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">* main
+</code></pre>
+<p><strong>Hint:</strong> the <code>*</code> means you are on that branch.</p>
+<hr>
+<h5>Step 4 — Create the GitHub repo, then link + push (separate commands)</h5>
+<p><strong>Do this in 3 small parts.</strong></p>
+<h6>4A — Create the empty repo on GitHub (command line)</h6>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>gh repo create prediction</code> = create a new GitHub repository named <code>prediction</code></li>
+<li><code>--public</code> = public repo (use <code>--private</code> if your tutor asks)</li>
+<li>do <strong>not</strong> use <code>--push</code> here — we will push in a later command</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">gh repo create prediction --public
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">✓ Created repository YOUR_USERNAME/prediction on github.com
+https://github.com/YOUR_USERNAME/prediction
+</code></pre>
+<p><strong>Hint:</strong> copy your real URL from the output (change <code>YOUR_USERNAME</code> to yours).<br>Example shape:</p>
+<pre><code class="language-text">https://github.com/YOUR_USERNAME/prediction.git
+</code></pre>
+<p><strong>If the name already exists online:</strong> use another name, for example <code>prediction-week5</code>.</p>
+<h6>4B — Link your local folder to that GitHub repo</h6>
+<p><strong>Short note:</strong> if <code>origin</code> already exists from an earlier try, remove it first:</p>
+<pre><code class="language-bash">git remote remove origin
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git remote add origin &lt;URL&gt;</code> = save the GitHub URL as local nickname <code>origin</code></li>
+<li>replace the URL with <strong>your</strong> repo URL from Step 4A</li>
+</ul>
+<p><strong>Command (type this — use your username):</strong></p>
+<pre><code class="language-bash">git remote add origin https://github.com/YOUR_USERNAME/prediction.git
+</code></pre>
+<p><strong>Check:</strong></p>
+<pre><code class="language-bash">git remote -v
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">origin  https://github.com/YOUR_USERNAME/prediction.git (fetch)
+origin  https://github.com/YOUR_USERNAME/prediction.git (push)
+</code></pre>
+<h6>4C — Push your code to GitHub</h6>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git push -u origin main</code> = upload local <code>main</code> to GitHub</li>
+<li><code>-u</code> = remember this link so later <code>git push</code> / <code>git pull</code> are shorter</li>
+<li><code>origin</code> = the remote nickname</li>
+<li><code>main</code> = the branch to upload</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git push -u origin main
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">Enumerating objects: ...
+To https://github.com/YOUR_USERNAME/prediction.git
+ * [new branch]      main -&gt; main
+branch &#39;main&#39; set up to track &#39;origin/main&#39;.
+</code></pre>
+<p><strong>If push fails with authentication error:</strong> go back to Step 2 (<code>gh auth login</code>), or use a Personal Access Token as the password (not your GitHub account password).</p>
+<p><strong>If push says <code>fetch first</code>:</strong><br>Meaning: GitHub has commits your computer does not have yet.<br>Download them first, then push again:</p>
+<pre><code class="language-bash">git pull
+git push
+</code></pre>
+<p><strong>Hint:</strong> if Git asks you to create a merge commit message, save and close the editor, then run <code>git push</code> again.<br>If <code>git pull</code> shows a merge conflict, fix the file (same as Exercise 7), then:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;merge remote main&quot;
+git push
+</code></pre>
+<hr>
+<h5>Step 5 — Confirm the remote link</h5>
+<p><strong>Hint — command meaning:</strong><br><code>git remote -v</code> = show where Git uploads/downloads (<code>-v</code> = verbose).</p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git remote -v
+</code></pre>
+<p><strong>Output (do not type — example):</strong></p>
+<pre><code class="language-text">origin  https://github.com/YOUR_USERNAME/prediction.git (fetch)
+origin  https://github.com/YOUR_USERNAME/prediction.git (push)
+</code></pre>
+<hr>
+<h5>Step 6 — Open your repo in the browser</h5>
+<p>Open this URL (change <code>YOUR_USERNAME</code>):</p>
+<pre><code class="language-text">https://github.com/YOUR_USERNAME/prediction
+</code></pre>
+<p><strong>What good looks like:</strong> you can see files such as <code>prediction.py</code>.</p>
+<hr>
+<h5>Step 7 — Done checklist</h5>
+<ul>
+<li><input disabled="" type="checkbox"> <code>gh auth status</code> shows you are logged in</li>
+<li><input disabled="" type="checkbox"> <code>git branch</code> shows <code>* main</code></li>
+<li><input disabled="" type="checkbox"> <code>git remote -v</code> shows <code>origin</code> pointing to github.com</li>
+<li><input disabled="" type="checkbox"> Browser page shows your project files</li>
+</ul>
+<p><strong>Why (simple and clear):</strong></p>
+<ol>
+<li><p><strong>What <code>-u</code> means</strong><br>In <code>git push -u origin main</code>, the <code>-u</code> means “remember this link.”<br>After that, you can usually type just:</p>
+<ul>
+<li><code>git push</code> (upload)</li>
+<li><code>git pull</code> (download)<br>without writing <code>origin main</code> every time.</li>
+</ul>
+</li>
+<li><p><strong>Why password fails</strong><br>GitHub no longer accepts your normal account password for Git.<br>You must use one of these:</p>
+<ul>
+<li><strong>GitHub CLI login</strong> (<code>gh auth login</code>), or  </li>
+<li>a <strong>Personal Access Token (PAT)</strong> as the password, or  </li>
+<li><strong>SSH keys</strong><br>If you type your normal password, GitHub rejects it.</li>
+</ul>
+</li>
+<li><p><strong>If push says <code>fetch first</code></strong><br>Example error: <code>[rejected] main -&gt; main (fetch first)</code><br>Meaning: GitHub has new commits that your computer does not have yet.<br>Fix (complete basic commands):</p>
+<pre><code class="language-bash">git pull
+git push
+</code></pre>
+<p>First download the new commits, then upload yours.<br>If <code>git pull</code> creates a conflict, resolve it, then <code>git add</code> + <code>git commit</code>, then <code>git push</code>.</p>
+</li>
+</ol>
+<p><strong>Why this exercise works:</strong><br><code>gh auth login</code> handles authentication.<br>Then we use <strong>separate commands</strong>:</p>
+<ol>
+<li><code>gh repo create ...</code> = create the empty GitHub repo  </li>
+<li><code>git remote add origin ...</code> = link your local folder to that repo  </li>
+<li><code>git push -u origin main</code> = upload your code</li>
+</ol>
+<p>You do <strong>not</strong> need to type your GitHub account password.</p>
+<hr>
+<h5>Backup plan (only if <code>gh</code> cannot be installed)</h5>
+<ol>
+<li>Create a token: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> → classic token → tick <strong><code>repo</code></strong> → copy token  </li>
+<li>On github.com create empty repo <code>prediction</code> (no README)  </li>
+<li>Then type:</li>
+</ol>
+<pre><code class="language-bash">git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/prediction.git
+git push -u origin main
+</code></pre>
+<p><strong>Hint — command meaning for the backup push:</strong></p>
+<ul>
+<li><code>git remote add origin &lt;URL&gt;</code> = save GitHub address as name <code>origin</code></li>
+<li><code>git push -u origin main</code> = upload branch <code>main</code> to <code>origin</code></li>
+<li><code>-u</code> = remember this remote/branch pair for later shorter <code>git push</code> / <code>git pull</code></li>
+</ul>
+<ol start="4">
+<li>When asked for password, paste the <strong>token</strong> (not your GitHub password)</li>
+</ol>
+<p><strong>If you see this error:</strong></p>
+<pre><code class="language-text">Password authentication is not supported for Git operations
+</code></pre>
+<p>you typed a normal password. Use the token, or go back to the main steps with <code>gh auth login</code>.</p>
+<p><strong>If you see this error:</strong></p>
+<pre><code class="language-text">! [rejected] main -&gt; main (fetch first)
+</code></pre>
+<p>GitHub is ahead of your computer. Fix with:</p>
+<pre><code class="language-bash">git pull
+git push
+</code></pre>
+</details><h3>Exercise 9 — Open a Pull Request</h3>
+<p><strong>Goal:</strong> practice the normal team review flow.<br><strong>Task:</strong> create a branch, add a docstring to <code>predict()</code> in <code>prediction.py</code>, push it, open a PR into <code>main</code>, review it, and merge it.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><code>git checkout -b feature/add-docstring</code>.</li>
+<li>Add a docstring to <code>predict()</code> in <code>prediction.py</code>, save, then commit.</li>
+<li><code>git push -u origin feature/add-docstring</code>.</li>
+<li>On GitHub you&#39;ll see a <strong>Compare &amp; pull request</strong> banner — click it. Add a title and a short description of <em>what and why</em>, then <strong>Create pull request</strong>.</li>
+<li>Review your own diff line-by-line (imagine you&#39;re a teammate). When happy, <strong>Merge pull request</strong> → <strong>Delete branch</strong>.</li>
+<li>Locally: <code>git checkout main &amp;&amp; git pull</code> to sync the merged change.</li>
+</ol>
+<details><summary>▶ Solution (what to watch for)</summary><p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout -b feature/add-docstring</code> = create + switch to this feature branch</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout -b feature/add-docstring
+</code></pre>
+<h4>How to add a docstring to <code>prediction.py</code></h4>
+<p><strong>Hint:</strong> a <strong>docstring</strong> is a short text inside <code>&quot;&quot;&quot;...&quot;&quot;&quot;</code> that explains what a function does.<br>Put it on the first line <strong>inside</strong> the function.</p>
+<ol>
+<li>Open the existing <code>prediction.py</code> (same file, do not create a new one).</li>
+<li>Find your <code>predict()</code> function. It may look like this:</li>
+</ol>
+<pre><code class="language-python">def predict():
+    print(&quot;bob threshold 0.5&quot;)
+</code></pre>
+<ol start="3">
+<li>Change it to this (add the docstring line, keep your current print text):</li>
+</ol>
+<pre><code class="language-python">def predict():
+    &quot;&quot;&quot;Return a simple rain-prediction message.&quot;&quot;&quot;
+    print(&quot;bob threshold 0.5&quot;)
+</code></pre>
+<p><strong>Hint:</strong></p>
+<ul>
+<li>Keep the indentation (4 spaces) the same as the <code>print</code> line</li>
+<li>Use three quotes: <code>&quot;&quot;&quot;</code> at the start and end</li>
+<li><strong>Save</strong> the file (<code>Ctrl+S</code>)</li>
+</ul>
+<ol start="4">
+<li>Optional check — show the file:</li>
+</ol>
+<pre><code class="language-bash">cat prediction.py
+</code></pre>
+<p>You should see the docstring inside <code>predict()</code>.</p>
+<h4>Commit and push the branch</h4>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git commit -am &quot;...&quot;</code> = <code>-a</code> stage tracked edits, <code>-m</code> message</li>
+<li><code>git push -u origin feature/add-docstring</code> = upload this branch and set upstream</li>
+<li><code>-u</code> = remember this branch’s remote tracking</li>
+<li><code>origin</code> = GitHub remote</li>
+<li><code>feature/add-docstring</code> = branch name to upload</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;docs: add docstring to predict()&quot;
+git push -u origin feature/add-docstring
+</code></pre>
+<p><strong>Hint (on GitHub — click, do not type):</strong></p>
+<ul>
+<li>Open your repo on github.com</li>
+<li>Click the <strong>Compare &amp; pull request</strong> banner (or <strong>Pull requests</strong> → <strong>New pull request</strong>)</li>
+<li>Title example: <code>Add docstring to predict()</code></li>
+<li>Description example: <code>Adds a short docstring so the function purpose is clearer.</code></li>
+<li>Click <strong>Create pull request</strong></li>
+<li>The PR page shows <strong>the diff</strong> (same idea as <code>git diff</code>)</li>
+<li><strong>Files changed</strong> is where reviewers leave comments on lines</li>
+<li><strong>Conversation</strong> shows discussion and check status (green tick = OK)</li>
+<li>Click <strong>Merge pull request</strong> → <strong>Confirm</strong> → <strong>Delete branch</strong></li>
+</ul>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout main</code> = switch back to <code>main</code></li>
+<li><code>git pull</code> = download + merge newest commits from GitHub into your current branch</li>
+<li><code>git branch -d feature/add-docstring</code> = delete the local branch (<code>-d</code> = safe delete if already merged)</li>
+</ul>
+<p><strong>Command (type this locally after the PR is merged):</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+git branch -d feature/add-docstring
+</code></pre>
+<p><strong>Optional check after pull:</strong></p>
+<pre><code class="language-bash">cat prediction.py
+</code></pre>
+<p>You should now see the docstring on <code>main</code> too.</p>
+<p><strong>Why:</strong> A Pull Request gives you a diff to review, a place to discuss, and a place for CI checks.</p>
+</details><h3>Exercise 10 — Protect <code>main</code></h3>
+<p><strong>Goal:</strong> stop anyone (including you) from pushing straight to <code>main</code>, so changes go through a PR.<br><strong>Task:</strong> turn on branch protection on GitHub.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>On the repo page: <strong>Settings</strong> → <strong>Branches</strong> → <strong>Add branch protection rule</strong>.</li>
+<li>Branch name pattern: <code>main</code>.</li>
+<li>Tick <strong>Require a pull request before merging</strong>, and <strong>Require approvals</strong> (set to <code>1</code> for a small team, or leave <code>0</code> for solo work but keep the PR requirement).</li>
+<li>If you&#39;ll add CI in Part 5, also tick <strong>Require status checks to pass before merging</strong> later.</li>
+<li><strong>Save.</strong> Try to push a commit directly to <code>main</code> — GitHub will refuse.</li>
+</ol>
+<details><summary>▶ Solution</summary><h4>A) Test: push directly to <code>main</code> (GitHub should refuse)</h4>
+<p><strong>Hint — command meaning:</strong>  </p>
+<ul>
+<li><code>git checkout main</code> = switch to the <code>main</code> branch  </li>
+<li><code>git pull</code> = download the latest <code>main</code> from GitHub  </li>
+<li><code>git commit -am &quot;...&quot;</code> = stage tracked file edits (<code>-a</code>) and commit with message (<code>-m</code>)  </li>
+<li><code>git push origin main</code> = try to upload <code>main</code> straight to GitHub (this should fail after protection)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+</code></pre>
+<p><strong>Hint:</strong> edit <code>prediction.py</code> a little (for example add a comment <code># protection test</code>), save the file, then:</p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git commit -am &quot;test: try direct push to main&quot;
+git push origin main
+</code></pre>
+<p><strong>Output (do not type — example of a refused push):</strong></p>
+<pre><code class="language-text">remote: error: GH006: Protected branch update failed for refs/heads/main.
+remote: error: Changes must be made through a pull request.
+To https://github.com/YOUR_USERNAME/prediction.git
+ ! [remote rejected] main -&gt; main (protected branch hook declined)
+error: failed to push some refs ...
+</code></pre>
+<p><strong>Hint:</strong> this error is <strong>good</strong>. It means Exercise 10 worked. Direct pushes to <code>main</code> are blocked.</p>
+<h4>B) Correct way after protection (branch + PR)</h4>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout -b feature/protected-main-test
+git push -u origin feature/protected-main-test
+</code></pre>
+<p>Then on GitHub: <strong>Compare &amp; pull request</strong> → review → <strong>Merge pull request</strong>.</p>
+<p><strong>After merge, sync locally:</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+</code></pre>
+<p><strong>Why:</strong> Branch protection turns “use a PR” into a real rule, not just advice. Use this on your Final Project group repo early.</p>
+</details><hr>
+<h2>Part 5 · Automate <em>(≈ 15 min)</em></h2>
+<p><strong>Notes — two different tools (do not mix them up):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Where it runs</th>
+<th>When it runs</th>
+<th>Exercise</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>GitHub Actions</strong></td>
+<td>On GitHub (in the cloud)</td>
+<td>After you <code>git push</code>, or when you open a <strong>Pull Request (PR)</strong></td>
+<td>Exercise 11</td>
+</tr>
+<tr>
+<td><strong>pre-commit</strong></td>
+<td>On <strong>your computer</strong></td>
+<td>Right before <code>git commit</code> saves a snapshot</td>
+<td>Exercise 12</td>
+</tr>
+</tbody></table>
+<p><strong>Simple picture:</strong></p>
+<ol>
+<li>You edit code on your laptop.</li>
+<li><strong>pre-commit</strong> (Exercise 12) can check it <em>before</em> the commit is saved.</li>
+<li>You push to GitHub.</li>
+<li><strong>GitHub Actions</strong> (Exercise 11) checks it again <em>on GitHub</em>.</li>
+</ol>
+<p><strong>What is a PR?</strong><br><strong>PR</strong> = <strong>Pull Request</strong>. It is a GitHub page where you ask to merge a branch into <code>main</code>.<br>So “every PR” means: “every time a Pull Request is opened or updated on GitHub.”</p>
+<h3>Mini glossary (read this first)</h3>
+<table>
+<thead>
+<tr>
+<th>Word / tool</th>
+<th>Simple meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CI</strong></td>
+<td>Continuous Integration = automatic checks on GitHub</td>
+</tr>
+<tr>
+<td><strong>workflow</strong></td>
+<td>A recipe GitHub runs (the <code>ci.yml</code> file)</td>
+</tr>
+<tr>
+<td><strong>lint / linter</strong></td>
+<td>A tool that checks code style and common mistakes</td>
+</tr>
+<tr>
+<td><strong>formatter</strong></td>
+<td>A tool that rewrites code to a clean, shared style</td>
+</tr>
+<tr>
+<td><strong>test</strong></td>
+<td>A small program that checks your code still works</td>
+</tr>
+<tr>
+<td><strong>hook</strong></td>
+<td>A tiny script that runs automatically at a Git moment (for example: before commit)</td>
+</tr>
+<tr>
+<td><strong>flake8</strong></td>
+<td>A Python <strong>linter</strong> — finds style issues and simple bugs</td>
+</tr>
+<tr>
+<td><strong>black</strong></td>
+<td>A Python <strong>formatter</strong> — auto-fixes spacing/layout</td>
+</tr>
+<tr>
+<td><strong>pytest</strong></td>
+<td>A Python <strong>test runner</strong> — runs your <code>test_*.py</code> files</td>
+</tr>
+<tr>
+<td><strong>nbstripout</strong></td>
+<td>Removes Jupyter notebook outputs before commit</td>
+</tr>
+<tr>
+<td><strong>pre-commit</strong></td>
+<td>A tool that installs and runs hooks before each <code>git commit</code></td>
+</tr>
+<tr>
+<td><strong>rev</strong></td>
+<td>The version of a hook tool to use (like a version number)</td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td>The name of the specific check to run</td>
+</tr>
+</tbody></table>
+<p><strong>Hint:</strong> keep this table open while you do Exercises 11–12.</p>
+<h3>Exercise 11 — Add a GitHub Actions workflow</h3>
+<p><strong>Goal:</strong> make GitHub automatically check your code after you upload it.<br><strong>In plain English:</strong> after <code>git push</code>, and also when someone opens a Pull Request (PR), GitHub should:</p>
+<ol>
+<li>install your packages  </li>
+<li>run <strong>flake8</strong> (style check)  </li>
+<li>run <strong>pytest</strong> (tests)</li>
+</ol>
+<p><strong>Task:</strong> add one special file: <code>.github/workflows/ci.yml</code>.<br>This file is the “recipe” GitHub follows. Students often call this a <strong>workflow</strong> or <strong>CI file</strong>.</p>
+<p><strong>Attached with this tutorial (Exercise 11):</strong> <code>ci.yml</code>, <code>requirements.txt</code>, <code>test_prediction.py</code>.<br>Create the folder first, then create each file in the correct place (see Solution commands), or copy the attached files into those same paths.</p>
+<p><strong>Steps (do them in order):</strong></p>
+<ol>
+<li>Create a feature branch (because <code>main</code> is protected from Exercise 10).</li>
+<li>Create the folder <code>.github/workflows</code>.</li>
+<li>Inside it, create a file named <code>ci.yml</code> (copy the content from the Solution).</li>
+<li>Also add <code>requirements.txt</code> and <code>test_prediction.py</code> if needed.</li>
+<li>Commit and push the <strong>feature branch</strong>.</li>
+<li>Open a Pull Request into <code>main</code>, wait for the CI check, then merge.</li>
+<li>On github.com, open <strong>Actions</strong> to watch the run.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> Exercise 11 is about GitHub (cloud checks). Exercise 12 is about your laptop. Do not put pre-commit settings in <code>ci.yml</code>.</p>
+<p><strong>Important:</strong> <code>main</code> is protected (Exercise 10), so do <strong>not</strong> push CI files straight to <code>main</code>. Use a feature branch + PR.</p>
+<p><strong>Step 0 — start from <code>main</code>, then create a feature branch</strong></p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+git checkout -b feature/add-ci
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout main</code> = switch to <code>main</code></li>
+<li><code>git pull</code> = get the latest <code>main</code> from GitHub</li>
+<li><code>git checkout -b feature/add-ci</code> = create and switch to a new branch for this CI work</li>
+</ul>
+<p><strong>Step A — create the folder + empty files in the correct places</strong></p>
+<p><strong>Hint — where each file must live:</strong></p>
+<ul>
+<li>folder: <code>.github/workflows/</code></li>
+<li>CI file: <code>.github/workflows/ci.yml</code> (<strong>not</strong> in the project root)</li>
+<li>packages file: <code>requirements.txt</code> (project root)</li>
+<li>test file: <code>test_prediction.py</code> (project root, next to <code>prediction.py</code>)</li>
+</ul>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>mkdir -p .github/workflows</code> = create nested folders</li>
+<li><code>-p</code> = create parents as needed; do not error if folders already exist</li>
+<li><code>touch &lt;path&gt;</code> = create an empty file at that exact path (then paste content into it)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">mkdir -p .github/workflows
+touch .github/workflows/ci.yml
+touch requirements.txt
+touch test_prediction.py
+</code></pre>
+<p><strong>Hint:</strong> check the paths look right:</p>
+<pre><code class="language-bash">ls .github/workflows/
+ls requirements.txt test_prediction.py
+</code></pre>
+<p>You should see <code>ci.yml</code> inside <code>.github/workflows/</code>, and the other two files in the project root.</p>
+<p><strong>Optional (if attached files are provided):</strong> copy them into those exact paths instead of using <code>touch</code> + paste, for example:</p>
+<pre><code class="language-bash">mkdir -p .github/workflows
+cp /path/to/attached/ci.yml .github/workflows/ci.yml
+cp /path/to/attached/requirements.txt requirements.txt
+cp /path/to/attached/test_prediction.py test_prediction.py
+</code></pre>
+<p><strong>Step B — fill <code>requirements.txt</code> (project root)</strong></p>
+<p><strong>Hint:</strong> GitHub will install packages listed in this file.<br>Open <code>requirements.txt</code> in your editor and paste the content below (or keep the attached copy).</p>
+<p><strong>File content (create/save <code>requirements.txt</code>):</strong></p>
+<pre><code class="language-text">numpy
+pandas
+pytest
+flake8
+pre-commit
+</code></pre>
+<p><strong>Step C — fill the workflow file (<code>.github/workflows/ci.yml</code>)</strong></p>
+<p><strong>Hint:</strong> open <code>.github/workflows/ci.yml</code> (the file you created with <code>touch</code>) and paste this content.<br>This is <strong>file content</strong>. It is <strong>not</strong> something you type into the terminal line by line.</p>
+<p><strong>Important (Windows):</strong> the file name must be exactly <code>ci.yml</code> — <strong>not</strong> <code>ci.yml.txt</code>.<br>If Notepad saved <code>ci.yml.txt</code>, rename it:</p>
+<pre><code class="language-bash">mv .github/workflows/ci.yml.txt .github/workflows/ci.yml
+</code></pre>
+<p>Check the real file name:</p>
+<pre><code class="language-bash">ls .github/workflows/
+</code></pre>
+<p>You should see <code>ci.yml</code>.</p>
+<p><strong>File content (create/save this file):</strong></p>
+<pre><code class="language-yaml"># .github/workflows/ci.yml
+# Hint: this recipe runs on GitHub, not on your laptop
+name: CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: &#39;3.11&#39;
+      - run: pip install -r requirements.txt
+      - run: pip install flake8 pytest
+      - run: flake8 . --max-line-length=100
+      - run: pytest -q
+</code></pre>
+<p><strong>Hint — what each line / parameter means:</strong></p>
+<ul>
+<li><code>name: CI</code> → label shown in the GitHub <strong>Actions</strong> tab</li>
+<li><code>on: [push, pull_request]</code> → run after a push <strong>and</strong> when a Pull Request (PR) is opened/updated</li>
+<li><code>runs-on: ubuntu-latest</code> → use a free Linux computer on GitHub</li>
+<li><code>actions/checkout@v4</code> → download your project code (<code>@v4</code> = version 4 of that action)</li>
+<li><code>actions/setup-python@v5</code> → install Python (<code>@v5</code> = version 5 of that action)</li>
+<li><code>python-version: &#39;3.11&#39;</code> → which Python version to install</li>
+<li><code>pip install -r requirements.txt</code> → install packages listed in the file (<code>-r</code> = from requirements file)</li>
+<li><code>pip install flake8 pytest</code> → install the linter and test runner</li>
+<li><code>flake8 . --max-line-length=100</code> → lint current folder (<code>.</code>); allow lines up to 100 characters</li>
+<li><code>pytest -q</code> → run tests; <code>-q</code> = quiet (less text)</li>
+</ul>
+<p><strong>Step D — fill <code>test_prediction.py</code> (project root)</strong></p>
+<p><strong>Hint:</strong> open <code>test_prediction.py</code> in the <strong>same folder as</strong> <code>prediction.py</code> (your project root), not inside <code>data/</code> or <code>.github/</code>. Paste the content below.</p>
+<p><strong>File content (create/save <code>test_prediction.py</code>):</strong></p>
+<pre><code class="language-python">from prediction import predict
+
+def test_predict_runs():
+    predict()
+</code></pre>
+<p><strong>Step E — commit on the feature branch and push</strong></p>
+<p><strong>Hint:</strong> you should still be on <code>feature/add-ci</code>. If not, switch with:</p>
+<pre><code class="language-bash">git checkout feature/add-ci
+</code></pre>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git add &lt;files&gt;</code> = stage these files</li>
+<li><code>git commit -m &quot;...&quot;</code> = save snapshot with message</li>
+<li><code>git push -u origin feature/add-ci</code> = upload this feature branch (<code>-u</code> remembers the link)</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git add .github/ requirements.txt test_prediction.py
+git status
+git commit -m &quot;ci: add lint + tests workflow&quot;
+git push -u origin feature/add-ci
+</code></pre>
+<p><strong>Hint:</strong> prefer <code>git add .github/</code> (whole folder). That still works if the nested path is awkward.<br>If you see <code>pathspec ... did not match any files</code>, check the file name with <code>ls .github/workflows/</code> — Windows may have saved <code>ci.yml.txt</code> instead of <code>ci.yml</code>.</p>
+<p><strong>Step F — open a Pull Request (because <code>main</code> is protected)</strong></p>
+<p><strong>Hint (on GitHub — click, do not type):</strong></p>
+<ol>
+<li>Open your repository on github.com</li>
+<li>Click <strong>Compare &amp; pull request</strong> (or <strong>Pull requests</strong> → <strong>New pull request</strong>)</li>
+<li>Base: <code>main</code> ← compare: <code>feature/add-ci</code></li>
+<li>Title example: <code>Add CI workflow</code></li>
+<li>Click <strong>Create pull request</strong></li>
+<li>Wait for the CI status check (green tick / red X)</li>
+<li>When happy, click <strong>Merge pull request</strong> → <strong>Confirm</strong> → <strong>Delete branch</strong></li>
+</ol>
+<p><strong>Step G — sync <code>main</code> locally and watch Actions</strong></p>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+</code></pre>
+<p><strong>Hint (on GitHub — click, do not type):</strong></p>
+<ol>
+<li>Open the <strong>Actions</strong> tab</li>
+<li>Click the newest run</li>
+<li>Green tick = checks passed<br>Red X = something failed (open the failed step to read the error)</li>
+</ol>
+<p><strong>Why:</strong> Because branch protection is on, CI files must enter <code>main</code> through a PR. The PR also triggers the workflow (<code>on: [push, pull_request]</code>), so you can see the green tick before merging.</p>
+</details><h3>Exercise 12 — Add pre-commit hooks</h3>
+<p><strong>Goal:</strong> auto-format code and clean notebooks <em>before</em> each commit.<br><strong>Task:</strong> install pre-commit and enable three hooks: <code>black</code> (formatter), <code>flake8</code> (linter), <code>nbstripout</code> (removes notebook outputs).</p>
+<p><strong>Attached with this tutorial (Exercise 12):</strong> <code>.pre-commit-config.yaml</code>.<br>Create it in the <strong>project root</strong> (same folder as <code>prediction.py</code>), not inside <code>.github/</code>.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Because <strong>main is protected</strong>, create a <strong>new</strong> feature branch and make sure it is <strong>active</strong> (do this <strong>before</strong> any <code>git add</code> / <code>git commit</code> / <code>git push</code>).</li>
+<li>Install pre-commit (on Windows Git Bash use <code>py -m …</code> if <code>pip</code> is not found).</li>
+<li>Create <code>.pre-commit-config.yaml</code> in the project root (see Solution command), then paste the hooks list.</li>
+<li>Enable the Git hook — this drops a hook into <code>.git/hooks/pre-commit</code>.</li>
+<li>Run hooks once on the whole project.</li>
+<li>Only then: <code>git add</code> → <code>git commit</code> → <code>git push</code> on that new branch, then open a PR into <code>main</code>.</li>
+</ol>
+<details><summary>▶ Solution</summary><p><strong>Hint:</strong> a <strong>hook</strong> is an automatic check that runs when you try to commit.<br><code>pre-commit</code> is the manager that installs those checks for you.</p>
+<p><strong>Important:</strong> <code>main</code> is protected (Exercise 10), so create a <strong>new branch</strong> for this work (better than reusing an old branch).<br>Do <strong>Step 0 first</strong>. The new branch must already be <strong>created and active</strong> before you run <code>git add</code> / <code>git commit</code> / <code>git push</code> later.</p>
+<p><strong>Step 0 — create a new feature branch (do this first)</strong></p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git checkout main</code> = switch to <code>main</code> first (start from the protected default branch)</li>
+<li><code>git pull</code> = get the latest <code>main</code> from GitHub</li>
+<li><code>git checkout -b feature/add-pre-commit</code> = create + switch to a new branch for this exercise</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">git checkout main
+git pull
+git checkout -b feature/add-pre-commit
+</code></pre>
+<p><strong>Hint:</strong> stay on <code>feature/add-pre-commit</code> for the rest of Exercise 12.</p>
+<p><strong>Hint — create vs switch:</strong></p>
+<ul>
+<li>First time (branch does <strong>not</strong> exist yet): use <code>git checkout -b feature/add-pre-commit</code></li>
+<li>Later (branch <strong>already</strong> exists): use <code>git checkout feature/add-pre-commit</code></li>
+<li>If you see <code>error: pathspec &#39;feature/add-pre-commit&#39; did not match</code>, the branch was never created — go back and run Step 0 with <code>-b</code>.</li>
+</ul>
+<p><strong>Step A — create the config file in the project root</strong></p>
+<p><strong>Hint — where this file must live:</strong></p>
+<ul>
+<li><code>.pre-commit-config.yaml</code> goes in the <strong>project root</strong> (same folder as <code>prediction.py</code>)</li>
+<li>do <strong>not</strong> put it inside <code>.github/</code></li>
+</ul>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>touch .pre-commit-config.yaml</code> = create an empty config file at the correct path</li>
+</ul>
+<p><strong>Command (type this):</strong></p>
+<pre><code class="language-bash">touch .pre-commit-config.yaml
+ls .pre-commit-config.yaml
+</code></pre>
+<p><strong>Optional (if attached file is provided):</strong></p>
+<pre><code class="language-bash">cp /path/to/attached/.pre-commit-config.yaml .pre-commit-config.yaml
+</code></pre>
+<p><strong>Hint:</strong> open <code>.pre-commit-config.yaml</code> and paste the content below (unless you copied the attached file).<br>This is <strong>file content</strong>, not a terminal command.</p>
+<p><strong>File content (create/save this file):</strong></p>
+<pre><code class="language-yaml"># .pre-commit-config.yaml
+# Hint: this file lists the automatic checks to run before each commit
+repos:
+  # 1) black = formatter (fixes code layout automatically)
+  - repo: https://github.com/psf/black
+    rev: 24.4.2          # Hint: rev = tool version (keep as shown)
+    hooks:
+      - id: black        # Hint: id = which check to run from that repo
+
+  # 2) flake8 = linter (reports style problems; does not auto-fix everything)
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.0
+    hooks:
+      - id: flake8
+
+  # 3) nbstripout = clean Jupyter notebooks (remove cell outputs)
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+</code></pre>
+<p><strong>Hint — plain English for this file:</strong></p>
+<ul>
+<li><code>repos:</code> = list of tools to download</li>
+<li>each <code>- repo:</code> block = one tool</li>
+<li><code>rev:</code> = which version of that tool to use</li>
+<li><code>hooks:</code> / <code>id:</code> = which check from that tool to turn on</li>
+<li><strong>black</strong> → makes spacing/style consistent</li>
+<li><strong>flake8</strong> → warns about messy or risky Python code</li>
+<li><strong>nbstripout</strong> → removes notebook outputs so Git history stays small and readable</li>
+</ul>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>py -m pip install pre-commit</code> = install the pre-commit Python package via the Windows Python launcher</li>
+<li><code>py</code> = Windows Python launcher (use this when <code>pip</code> / <code>python</code> are not found in Git Bash)</li>
+<li><code>-m pip</code> = run the pip module</li>
+<li><code>install pre-commit</code> = download and install the package</li>
+<li><code>py -m pre_commit install</code> = turn on the Git hook in this repo (writes into <code>.git/hooks/</code>)</li>
+<li>Note the underscore: module name is <code>pre_commit</code>, not <code>pre-commit</code></li>
+</ul>
+<p><strong>Command (type this on Windows / Git Bash):</strong></p>
+<pre><code class="language-bash">py -m pip install pre-commit
+py -m pre_commit install
+</code></pre>
+<p><strong>Hint:</strong> if <code>pip</code> and <code>pre-commit</code> already work in your terminal, you can use the short form instead:<br><code>pip install pre-commit</code> then <code>pre-commit install</code>.</p>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>py -m pre_commit run --all-files</code> = run all hooks now on every file in the project</li>
+<li><code>run</code> = execute hooks once</li>
+<li><code>--all-files</code> = check the whole project (not only staged files)</li>
+</ul>
+<p><strong>Command (type this once to check the whole project now):</strong></p>
+<pre><code class="language-bash">py -m pre_commit run --all-files
+</code></pre>
+<p><strong>Hint — how to read the result:</strong></p>
+<ul>
+<li><code>Passed</code> = that check is OK</li>
+<li><code>Failed</code> = fix the reported issue, then run the command again</li>
+<li>If <strong>black</strong> changes files, that is normal: run <code>git add</code> on the changed files, then commit again</li>
+</ul>
+<p><strong>Hint — command meaning:</strong></p>
+<ul>
+<li><code>git add .pre-commit-config.yaml</code> = stage the config file</li>
+<li><code>git commit -m &quot;...&quot;</code> = save it (<code>-m</code> = message)</li>
+<li><code>git push -u origin feature/add-pre-commit</code> = upload the <strong>new</strong> branch (<code>-u</code> remembers the link)</li>
+</ul>
+<p><strong>Hint:</strong> because <strong>main is protected</strong> (Exercise 10), do <strong>not</strong> push this straight to <code>main</code>.<br>You should already be on <code>feature/add-pre-commit</code> from Step 0.<br>If you are not, switch with <code>git checkout feature/add-pre-commit</code> (only works if Step 0 already created it).<br>If that pathspec error appears, create it now with <code>git checkout -b feature/add-pre-commit</code>.</p>
+<p><strong>Command (type this after the checks pass — you must already be on <code>feature/add-pre-commit</code>):</strong></p>
+<pre><code class="language-bash">git add .pre-commit-config.yaml
+git commit -m &quot;chore: enable pre-commit hooks&quot;
+git push -u origin feature/add-pre-commit
+</code></pre>
+<p><strong>Hint:</strong> then open a pull request on GitHub: <code>feature/add-pre-commit</code> → <code>main</code>.</p>
+<p><strong>Hint:</strong> from now on, when you run <code>git commit</code>, these hooks run automatically.<br>If a hook fails, the commit is stopped. Fix → <code>git add</code> → commit again.</p>
+<p><strong>Why:</strong> Local hooks catch problems <em>before</em> code reaches GitHub.<br>CI (Exercise 11) catches problems <em>after</em> push. Using both is best practice.</p>
+</details><hr>
+<h2>Concept check (5-minute self-quiz)</h2>
+<p>Answer in one line, then check.</p>
+<ol>
+<li>What&#39;s the difference between <code>git add</code> and <code>git commit</code>?</li>
+<li>Where does <code>git diff</code> look, and where does <code>git diff --staged</code> look?</li>
+<li>Committing a <code>.env</code> file with an API key by mistake — is deleting the file enough to fix it?</li>
+<li>Two branches change the same line. What happens on merge, and what do you do?</li>
+<li>You made a fresh clone but the push is rejected with <code>[rejected] main -&gt; main (fetch first)</code>. Why, and how do you fix it?</li>
+</ol>
+<details><summary>▶ Answers</summary><ol>
+<li><code>git add</code> chooses which files go into the next save. <code>git commit</code> actually saves that snapshot with a message.</li>
+<li><code>git diff</code> shows edits not staged yet. <code>git diff --staged</code> shows edits already staged (what the next commit will include).</li>
+<li><strong>No.</strong> Deleting the file is not enough. The secret can still be in old commits. Change/revoke the key, and add <code>.env</code> to <code>.gitignore</code> so it does not happen again.</li>
+<li>Git shows a <strong>merge conflict</strong>. Open the file, keep the correct lines, delete the conflict markers, then <code>git add</code> and <code>git commit</code>. Use <code>git merge --abort</code> if you want to cancel.</li>
+<li>GitHub has commits that your computer does not have yet. Run <code>git pull</code> first, then <code>git push</code>.</li>
+</ol>
+<p>(End of answers.)</p>
+</details><hr>
+<h2>Capstone challenge (optional, ~15 min)</h2>
+<p>Do the whole nine-step case study again on a <strong>new</strong> project of your own — a small script (calculator, greeting bot, anything). Include:</p>
+<ol>
+<li><code>git init</code>, first commit, <code>.gitignore</code> that keeps out <code>data/</code> and <code>.env</code>.</li>
+<li>A <code>feature/*</code> branch with a real change, merged back into <code>main</code>.</li>
+<li><strong>A deliberate conflict</strong> — edit the same line on two branches, merge, resolve it, and note <em>which</em> version you kept and why.</li>
+<li>Push to a fresh GitHub repo; <strong>protect <code>main</code></strong>.</li>
+<li>Open a PR from a second branch and merge it via the PR (not on the command line).</li>
+<li>Add <code>ci.yml</code> so the PR gets a green tick.</li>
+<li>Add <code>.pre-commit-config.yaml</code> with at least <code>black</code> and <code>flake8</code>.</li>
+</ol>
+<p>You&#39;ve now done, unaided, the exact workflow expected in your <strong>Final Project</strong> — and the reproducibility hallmarks the <strong>Paper Critique</strong> asks you to look for in others&#39; work.</p>
+<hr>
+<p><em>DSTS 11523 · University of Canberra · Dr Ibrahim Radwan — all commands verified on Git 2.43, running end-to-end on a real repo.</em></p>
+</body></html>
